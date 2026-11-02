@@ -1,0 +1,93 @@
+{
+ "end_members": [
+  "hull:0139",
+  "hull:0080"
+ ],
+ "na_metal": "hull:0732",
+ "examples": [
+  {
+   "hull_id": "hull:0732",
+   "role": "Na metal"
+  },
+  {
+   "hull_id": "hull:0139",
+   "role": "end member MnO2 (x=0, P2)"
+  },
+  {
+   "hull_id": "hull:0080",
+   "role": "end member NaMnO2 (x=1, P2)"
+  },
+  {
+   "hull_id": "hull:0065",
+   "role": "relaxed P2 Na_xMnO2 (x=0.1111, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0149",
+   "role": "relaxed P2 Na_xMnO2 (x=0.1111, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0274",
+   "role": "relaxed P2 Na_xMnO2 (x=0.1111, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0015",
+   "role": "relaxed P2 Na_xMnO2 (x=0.2778, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0016",
+   "role": "relaxed P2 Na_xMnO2 (x=0.2778, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0027",
+   "role": "relaxed P2 Na_xMnO2 (x=0.2778, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0158",
+   "role": "relaxed P2 Na_xMnO2 (x=0.4444, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0174",
+   "role": "relaxed P2 Na_xMnO2 (x=0.4444, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0246",
+   "role": "relaxed P2 Na_xMnO2 (x=0.4444, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0092",
+   "role": "relaxed P2 Na_xMnO2 (x=0.5556, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0100",
+   "role": "relaxed P2 Na_xMnO2 (x=0.5556, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0262",
+   "role": "relaxed P2 Na_xMnO2 (x=0.5556, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0021",
+   "role": "relaxed P2 Na_xMnO2 (x=0.7222, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0175",
+   "role": "relaxed P2 Na_xMnO2 (x=0.7222, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0197",
+   "role": "relaxed P2 Na_xMnO2 (x=0.7222, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0001",
+   "role": "relaxed P2 Na_xMnO2 (x=0.8889, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0087",
+   "role": "relaxed P2 Na_xMnO2 (x=0.8889, one of three Na arrangements at this x)"
+  },
+  {
+   "hull_id": "hull:0231",
+   "role": "relaxed P2 Na_xMnO2 (x=0.8889, one of three Na arrangements at this x)"
+  }
+ ]
+}

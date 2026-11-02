@@ -1,0 +1,44 @@
+{
+ "system": "a001",
+ "source": "frodo /home/hgpark/ICL-qwen/cf4-pairs (build_pairs.py, build_contact.py, VASP PBE 450 eV ISPIN 2 no D3)",
+ "source_sha256": "042e28da0e47616f25fac5bb4e1fe8073ce4ded6c8cc6c2e43d778eaa6522e6a",
+ "subsets": {
+  "6": {
+   "train": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "val": [
+    6
+   ]
+  },
+  "5": {
+   "train": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "val": [
+    3
+   ]
+  },
+  "3": {
+   "train": [
+    0,
+    4,
+    6
+   ],
+   "val": [
+    3
+   ]
+  }
+ },
+ "note": "index 0 = bare-slab reference; train/val only for a later FT comparison, ICL shows all",
+ "nsub_rule": "2026-10-26 example-count check for CF4 (user request): add nested N=5 and N=3 subsets to every inputs_pairs/examples/<surf>/split.json,\nexisting entries unchanged (originals in nsub_backup/). Rule as the MOF nested subsets: frame order = 1 + default_rng(0).permutation(n_frames),\nN subset = first N of that order (3 in 5 in all); index 0 (bare slab) always in train. FT val count 1, chosen as subset[default_rng(0).permutation(N)[-1:]]."
+}

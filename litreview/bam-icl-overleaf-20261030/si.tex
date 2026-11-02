@@ -1,0 +1,782 @@
+\begin{filecontents*}[overwrite]{si-references.bib}
+@misc{sriram2025odac25,
+  author = {Sriram, Anuroop and Brabson, Logan M. and Yu, Xiaohan and Choi, Sihoon and Abdelmaqsoud, Kareem and Moubarak, Elias and de Haan, Pim and L{\"o}we, Sindy and Brehmer, Johann and Kitchin, John R. and Welling, Max and Zitnick, C. Lawrence and Ulissi, Zachary and Medford, Andrew J. and Sholl, David S.},
+  title = {The Open DAC 2025 Dataset for Sorbent Discovery in Direct Air Capture},
+  year = {2025},
+  eprint = {2508.03162},
+  archivePrefix = {arXiv},
+  doi = {10.48550/arXiv.2508.03162},
+}
+@article{luo2024cf4,
+  author = {Luo, Tao and Zhang, Hang and Chen, Yingkang and Chen, Shanyong and Pan, Yang and Liu, Kang and Fu, Junwei and Chai, Liyuan and Lin, Zhang and Coote, Michelle L. and Liu, Min},
+  title = {Unveiling Tetrafluoromethane Decomposition over Alumina Catalysts},
+  journal = {J. Am. Chem. Soc.},
+  volume = {146},
+  pages = {35057--35063},
+  year = {2024},
+  doi = {10.1021/jacs.4c06154}
+}
+@article{digne2002alumina,
+  author = {Digne, M. and Sautet, P. and Raybaud, P. and Euzen, P. and Toulhoat, H.},
+  title = {Hydroxyl Groups on $\gamma$-Alumina Surfaces: A {DFT} Study},
+  journal = {J. Catal.},
+  volume = {211},
+  pages = {1--5},
+  year = {2002},
+  doi = {10.1006/jcat.2002.3741}
+}
+@article{digne2004alumina,
+  author = {Digne, M. and Sautet, P. and Raybaud, P. and Euzen, P. and Toulhoat, H.},
+  title = {Use of {DFT} to Achieve a Rational Understanding of Acid--Basic Properties of $\gamma$-Alumina Surfaces},
+  journal = {J. Catal.},
+  volume = {226},
+  pages = {54--68},
+  year = {2004},
+  doi = {10.1016/j.jcat.2004.04.020}
+}
+@misc{anthropic2026sonnet55,
+  year = {n.d.},
+  author = {{Anthropic}},
+  title = {Claude Sonnet 5.5 (model documentation)},
+  howpublished = {Claude Platform Docs},
+  url = {https://platform.claude.com/docs/en/models/sonnet-5-5/overview},
+  note = {Accessed 2026-10-15}
+}
+
+@misc{anthropic2026claudecode,
+  year = {n.d.},
+  author = {{Anthropic}},
+  title = {Run Claude Code programmatically},
+  howpublished = {Claude Code Docs},
+  url = {https://code.claude.com/docs/en/headless},
+  note = {Accessed 2026-10-15}
+}
+
+@misc{google2026gemini38flash,
+  year = {n.d.},
+  author = {{Google}},
+  title = {Gemini 3.8 Flash},
+  howpublished = {Gemini API documentation, Google AI for Developers},
+  url = {https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash},
+  note = {Accessed 2026-10-15}
+}
+
+@misc{qwen38,
+  author = {{Qwen Team}},
+  title = {{Qwen3.8-Max}: A New Bar for Coding and Cowork},
+  year = {2026},
+  month = aug,
+  url = {https://qwen.ai/blog?id=qwen3.8},
+  note = {Model weights: Qwen3.8-27B, https://huggingface.co/Qwen/Qwen3.8-27B},
+}
+
+@misc{llamacpp,
+  author = {Gerganov, Georgi and {contributors}},
+  title = {llama.cpp: {LLM} inference in {C/C++}},
+  year = {2026},
+  url = {https://github.com/ggml-org/llama.cpp},
+}
+\end{filecontents*}
+
+\documentclass[aip,jcp,preprint,superscriptaddress,nofootinbib]{revtex4-2}
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{placeins}
+
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\theequation}{S\arabic{equation}}
+% Subsections are numbered S1.1, S2.1, ...; the empty prefixes keep \ref from repeating the section number
+\makeatletter
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\p@subsection}{}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+\renewcommand{\p@subsubsection}{}
+\makeatother
+
+% \bulktrue shows the battery and bulk test sets (must match main.tex)
+\newif\ifbulk
+\bulkfalse
+
+\begin{document}
+
+\title{Supporting Information: Language-Model-Written Physical Corrections for a Pretrained Interatomic Potential}
+
+\author{Hyun Gyu Park}
+\affiliation{Department of Energy Science, Sungkyunkwan University, Suwon, Republic of Korea}
+\author{Won Woong Choi}
+\affiliation{Department of Energy Science, Sungkyunkwan University, Suwon, Republic of Korea}
+\author{Wonho Lee}
+\affiliation{Department of Energy, Sungkyunkwan University, Suwon, Republic of Korea}
+\author{Sangjae Seo}
+\affiliation{Department of Supercomputing Acceleration Research, Korea Institute of Science and Technology Information, Daejeon 34141, Republic of Korea}
+\author{Juho Lee}
+\email{juholee@kaist.ac.kr}
+\affiliation{Kim Jaechul Graduate School of AI, KAIST, Daejeon, Republic of Korea}
+\author{Chang Woo Myung}
+\email{cwmyung@skku.edu}
+\affiliation{Department of Energy Science, Sungkyunkwan University, Suwon, Republic of Korea}
+\affiliation{Department of Energy, Sungkyunkwan University, Suwon, Republic of Korea}
+
+\date{\today}
+
+\maketitle
+
+\clearpage
+\tableofcontents
+\clearpage
+
+\section{Common prompt and model execution}
+\label{si:prompt}
+
+Every call sends one system message and one user message; no conversation is carried from one call to the next. The text below is the prompt of the method\ifbulk\ for the eight battery and bulk test sets\fi. Parts that are generated from the examples are replaced by a description in angle brackets. The first five calls of an example set send the first block, and each refinement call sends the same text followed by the second block. The application versions change this text as described in Section~\ref{si:app-protocols}. The cathode, catalyst and MOF versions add a description of their target quantity and their selection rule, and the cathode and MOF versions also describe their additional term types; the cathode version also adds the decomposition and term effect tables. The CF$_4$ version uses the text of the MOF version without the dispersion term, with the bare slab and CF$_4$ in place of the bare framework and CO$_2$.
+
+The example descriptors include composition, atom count, $E^\star-E_{\mathrm{BAM}}$, $E^\star-E_{\mathrm{NN}}$ and its value per atom, histograms of element pair distances over 0--5~\AA, mean coordination, RMS force residuals, first neighbour distances and quantiles of bond angle cosines. The residual force table groups $\mathbf F^\star-\mathbf F_{\mathrm{NN}}$ by centre and neighbour element pair. It reports the mean projection onto the unit vector towards the neighbour in 0.25~\AA\ bins from 1 to 5~\AA, with the number of neighbour pairs in each bin. A negative projection indicates that the correction should push atoms apart at that separation. The prompt also supplies the BAM values $\overline e(Z)+c_{\mathrm{old}}(Z)$; copying these constants and setting the contribution that depends on coordinates to zero reproduces BAM.
+
+\begin{scriptsize}
+\begin{verbatim}
+[System]
+You are a physicist writing an explicit energy correction for a frozen interatomic potential.
+You answer with one JSON object only and never write code.
+
+[User, first five calls]
+Task: write an explicit energy correction f for a frozen neural interatomic potential.
+E_pred = E_NN + f. E_NN is the raw neural-network energy of a structure.
+You must write every number yourself. Nothing is fitted after your answer: your numbers are
+used exactly as written.
+f = sum over atoms i of c_{Z_i} + sum over the physics terms you choose (1..8 terms, each a
+JSON object):
+  {"type":"born_mayer","pair":"X-Y","B":<eV>,"rho":<A>}
+      B exp(-(r - r1_XY)/rho), B in [-1,1], rho in [0.1,1]
+  {"type":"morse","pair":"X-Y","D":<eV>,"a":<1/A>,"r0":<A>}
+      D [(1 - exp(-a (r - r0)))^2 - 1], D in [-1,1], a in [0.5,5], r0 in [0.8,1.2] x r1_XY
+  {"type":"eam","element":"X","A":<eV>,"beta":<1/A>}
+      -A sqrt(rho_i) for X atoms, rho_i = sum_j exp(-beta (r_ij - r1_X)), A in [-1,1],
+      beta in [0.5,5]
+  {"type":"angle","center":"X","lam":<eV>,"cos0":<number>}
+      lam sum over neighbour pairs j<k of X atoms (cos theta_jik - cos0)^2, lam in [-1,1],
+      cos0 in [-1,1]
+Pair terms are summed over every pair of atoms of the two elements within 5 A; all terms go
+smoothly to zero at 5 A (angles use neighbours within 1.15 to 1.35 x r1_X). r1_XY and r1_X are
+the first-neighbour distances listed below.
+At most one term of each type per pair or element. These terms correct the residual
+E_DFT - E_NN; they are not a full potential, so their energies should be of the size of the
+residuals.
+Forces are F = F_NN - df/dR. c_Z alone never changes forces; every physics term does.
+Goal: a candidate counts only if BOTH its example energy error (mean |E_DFT - E_pred| per atom)
+AND its example force error (mean over structures of the mean atomic |F_DFT - F_pred|) are lower
+than those of the original potential on the same examples. Among those, the lowest force error
+wins.
+The correction must reproduce E_DFT - E_NN of the example structures below. Use enough decimal
+places (at least 4 for c_Z).
+The structures you will be evaluated on are different structures of the same elements; their
+DFT energies are not available.
+
+The original potential uses fixed per-element values (node_enr_avg + e_corr), in eV:
+<per-element values of BAM, e.g. {"Ba":-5.000009,"H":-3.669603,...}>.
+With c_Z equal to these values and no other terms, f reproduces the original potential exactly.
+Each example also lists E_DFT - E_BAM, the original potential error. You may start from these
+values and change them.
+
+Examples (<N> structures):
+<JSON list, one entry per example: E_DFT - E_BAM, E_DFT - E_NN, composition, number of atoms,
+ energy per atom, distance histogram per element pair, mean coordination, RMS of the residual
+ forces and their radial projections per distance bin>
+
+First-neighbour distances in the examples (r1_XY: median over X atoms of the nearest Y distance;
+r1_X: median nearest-neighbour distance of X atoms) and quantiles of cos theta between neighbours
+of X within 1.35 x r1_X, all in Angstrom:
+<JSON: r1_XY for every element pair, r1_X for every element, cos theta quantiles 5/25/50/75/95>
+Distance histograms count directed periodic neighbours with bin edges
+[0,1,1.5,2,2.5,3,3.5,4,4.5,5] Angstrom. Radial projections are projections of atomic residual
+forces F_DFT - F_NN.
+
+Residual forces F_DFT - F_NN of the original potential on all examples, per element of the
+centre atom (key X) or per centre-neighbour element pair (key X-Y: X atoms, projected toward Y
+neighbours): mean projection of the atom's residual force on the unit vector from the atom to
+each neighbour, per distance bin with edges [1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0,
+3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0] Angstrom (positive: the true force pulls the atom
+toward neighbours at that distance more than E_NN does, so the correction should add attraction
+there), the number of neighbour pairs per bin, and the RMS of residual force components:
+<JSON: for every element and element pair, the mean projected residual per bin, the number of
+ neighbour pairs per bin and the RMS of the residual force components>
+
+Return exactly this JSON shape with 1..5 distinct candidates, no markdown:
+{"candidates":[{"c":{<element>:<number>,...},"terms":[{"type":"morse","pair":"X-Y",
+"D":<number>,"a":<number>,"r0":<number>}],"rationale":"<one short sentence>"}]}
+Each rationale at most 200 characters.
+
+[User, refinement calls: the text above, followed by]
+Your previous candidates were scored on all the examples above: example energy error
+(meV/atom) and force error (eV/A); passes_gate is true when both are below the original
+potential. For the best candidate the residuals E_DFT - E_pred and the force error of every
+example, and its remaining residual force table (same format, F_DFT - F_pred), are listed.
+Use them to improve the numbers or the form.
+<JSON: the best five earlier candidates with their constants, terms, example energy and
+ force errors and passes_gate; for the best candidate, E_DFT - E_pred and the force error of
+ every example and its remaining residual force table>
+\end{verbatim}
+\end{scriptsize}
+
+\textit{Candidate selection in the base protocol.} In the base protocol, each valid candidate is evaluated on all 20 examples. A candidate is retained only if both its mean absolute energy error per atom and its mean force error on these examples are lower than the corresponding BAM errors. The retained candidate with the lowest example force error is selected; ties are resolved by lower energy error, fewer terms and a canonical key. No inner validation split or refitting is used. The same examples are shown to the language model and used for selection, making selection in sample; only the queries are held out from the example based generation and selection procedure. If no candidate is retained, the context uses BAM\ifbulk; this did not occur in any of the 71 contexts\fi.
+
+\subsection{Term forms and parameter ranges}
+
+Table~\ref{tab:si-ranges} lists every form the language model may use and the range of each of its parameters. A candidate with a number outside its range is rejected before it is scored. Pair terms and the embedded atom density are multiplied by the switch $S(r)$ of the main text, which is 1 below 4.5~\AA\ and zero at 5~\AA; the screened Coulomb term is summed to 10~\AA. A correction contains one to eight terms, and each form may appear at most once per element pair or element, except the shell term, which may appear up to three times per pair.
+
+\begin{table}[h]
+\caption{Term forms and parameter ranges. $r$: distance between two atoms of the pair; $r_{1,XY}$ and $r_{1,X}$: median first neighbour distance of the pair or element over the example structures; $\theta$: bond angle at the centre atom; $V_\mathrm{Mn}$: bond valence sum of a Mn atom (Section~\ref{si:app-cathode}). Versions: all, every version of the method; MOF, the MOF version with the dispersion term; cathode, the cathode version.}
+\label{tab:si-ranges}
+\footnotesize
+\begin{tabular}{@{}lp{0.33\textwidth}p{0.36\textwidth}l@{}}
+\toprule
+Term & Form & Parameter ranges & Versions \\
+\midrule
+Per element constant & \raggedright $c_Z$ per atom & \raggedright $|c_Z|\le100$~eV & all \\
+Born--Mayer & \raggedright $B\,e^{-(r-r_{1,XY})/\rho}$ & \raggedright $B\in[-1,1]$~eV, $\rho\in[0.1,1]$~\AA & all \\
+Morse & \raggedright $D[(1-e^{-a(r-r_0)})^2-1]$ & \raggedright $D\in[-1,1]$~eV, $a\in[0.5,5]$~\AA$^{-1}$, $r_0\in[0.8,1.2]\,r_{1,XY}$ & all \\
+Embedded atom & \raggedright $-A\sqrt{\rho_i}$, $\rho_i=\sum_j e^{-\beta(r_{ij}-r_{1,X})}$ & \raggedright $A\in[-1,1]$~eV, $\beta\in[0.5,5]$~\AA$^{-1}$ & all \\
+Bond angle & \raggedright $\lambda(\cos\theta-\cos\theta_0)^2$ & \raggedright $\lambda\in[-1,1]$~eV, $\cos\theta_0\in[-1,1]$ & all \\
+Dispersion & \raggedright $-C_6/(r^6+R_0^6)$ & \raggedright $C_6\in[0,200]$~eV\,\AA$^6$, $R_0\in[0.8,1.2]\,r_{1,XY}$ & MOF \\
+Gaussian shell & \raggedright $J\,e^{-(r-r_s)^2/2\sigma^2}$ & \raggedright $J\in[-0.3,0.3]$~eV, $r_s\in[2,5]$~\AA, $\sigma\in[0.05,0.5]$~\AA & cathode \\
+Screened Coulomb & \raggedright $A\,e^{-r/\lambda}/r$ & \raggedright $A\in[0,2]$~eV\,\AA, $\lambda\in[1,10]$~\AA & cathode \\
+Site & \raggedright $\epsilon$ times the number of Mn within $r_f$ & \raggedright $\epsilon\in[-0.5,0.5]$~eV, $r_f\in[2.5,3.6]$~\AA & cathode \\
+Bond valence & \raggedright $\kappa(V_\mathrm{Mn}-V_0)^2$ & \raggedright $\kappa\in[-0.5,0.5]$~eV, $V_0\in[2.5,4.5]$ & cathode \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\subsection{Model execution and response handling}
+\label{si:model-execution}
+
+\textit{Claude.} Claude Sonnet 5.5 is accessed through the Claude Code command line interface (CLI) in noninteractive mode.\cite{anthropic2026sonnet55,anthropic2026claudecode} Every call runs in a fresh empty temporary directory, with tools disabled, user and project settings excluded, and session persistence disabled. The invocation uses \texttt{--tools ""}, \texttt{--setting-sources ""}, \texttt{--strict-mcp-config} and \texttt{--no-session-persistence}. Reasoning is used, while sampling parameters are not explicitly set.\ifbulk Over the 710 evaluation calls it used a median of 1085 reasoning tokens per call (90th percentile 1676).\fi{}
+
+\textit{Gemini.} Gemini 3.8 Flash uses the \texttt{gemini-3.8-flash-low} model through the Antigravity CLI.\cite{google2026gemini38flash} Each call runs in a fresh temporary directory containing a workspace custom agent. The agent supplies the system instructions and declares \texttt{tools: []}. No separate flag is passed to disable reasoning: the low effort variant does not guarantee zero reasoning usage, and some stored responses report nonzero thinking tokens. Sampling parameters are not explicitly set.
+
+\textit{GPT.} GPT-5.6 Luna is accessed through the Codex CLI with reasoning effort set to \texttt{medium}. Each call uses an ephemeral session and a fresh temporary working directory, ignores user configuration and rules, and runs in a sandbox with read access only. Shell, web search and auxiliary tool features are disabled. System instructions are supplied through a separate temporary file. Sampling parameters are not explicitly set. The recorded model ID is the requested identifier, not independent confirmation of an immutable service checkpoint.
+
+\textit{Qwen.} Qwen3.8-27B is run locally with llama.cpp.\cite{qwen38,llamacpp} The model file is \texttt{Qwen3.8-\allowbreak 27B-UD-\allowbreak Q4\_K\_M.gguf}. Application requests set temperature to 1.0, \texttt{top\_p} to 0.9 and the output token limit to 3000, request a JSON object, and set \texttt{enable\_thinking=false}. The call label determines the sampling seed; the repetition identifier is included for the repeated application runs, as described in Section~\ref{si:app-protocols}.
+
+\textit{Response checks and records.} \ifbulk Of the 710 calls, 19 returned no usable answer, and 269 candidates were rejected for violating the format or a parameter range.\fi{} Gemini and GPT responses containing a tool step are marked invalid and contribute no candidate. The Gemini CLI can still record internal task management steps despite the empty agent tool list; those responses are rejected in full. Other returned answers must satisfy the JSON, format and parameter checks before candidates are scored. Requests, returned responses, usage metadata and validation outcomes are recorded. If a usage limit interrupts a call before a terminal response record is written, the same sealed request is resent unchanged after access resumes.
+
+\clearpage
+\section{Procedures for each application}
+\label{si:app-protocols}
+
+Four application versions modify the base protocol of the main text: the cathode, catalyst, MOF and CF$_4$ versions. Each subsection gives the structures and DFT labels, the construction of the target quantity, the changes to the prompt, the selection and range checks, the fine tuning split and the run history of one version. Settings not stated here follow the base protocol of the main text, including the language model settings, the format and parameter range checks, the fine tuning settings and the use of BAM when no candidate passes. Term forms and parameter ranges are listed in Table~\ref{tab:si-ranges}; only quantities absent from that table are defined below. The prompts of all four versions were developed after feedback from test structures, as noted in each subsection. The application evaluations are therefore not independent of method development, and no separate set was reserved to validate prompt design.
+
+\subsection{Na$_x$MnO$_2$ cathode}
+\label{si:app-cathode}
+
+\textit{Structures and labels.} The Na$_x$MnO$_2$ (NMO) data contain structures of 57 to 118 atoms in P2, P2$'$ and OP4 stackings with $x$ between 0 and 1; only the P2 structures are used. Each structure is the final frame of a DFT relaxation (PBE$+U$ with $U_{\mathrm{Mn}}=4$~eV, D3(BJ) dispersion, 750~eV cutoff, spin polarized, VASP 6.3.2). In all 297 P2 structures, the total magnetization is $3+x$~$\mu_\mathrm{B}$ per formula unit, which indicates a common ferromagnetic spin state. P2$'$ and OP4 structures are excluded because they contain mixed spin states. All energies are evaluated at the DFT geometries, and no structure is relaxed with a model.
+
+\textit{Target quantities.} The formation energy $\Delta E_\mathrm{f}(x)$ per MnO$_2$ formula unit is taken relative to the P2 structures at $x=0$ and $x=1$ as end members, as defined in the main text. Any energy linear in atom counts, including $\sum_Z n_Z c_Z$, cancels in $\Delta E_\mathrm{f}$, so only the written terms $\phi_t$ can change it. The hull is the lower convex envelope of $\Delta E_\mathrm{f}$ over all structures, and $E_{\mathrm{hull}}$ is the energy of a structure above this envelope. The voltage between adjacent DFT hull vertices is $V=-[E(x_{i+1})-E(x_i)-(x_{i+1}-x_i)\,\mu_{\mathrm{Na}}]/[(x_{i+1}-x_i)\,e]$, with each method using its own structure energies and Na metal reference $\mu_{\mathrm{Na}}$; the Na elemental constant also cancels. Here $e$ is the positive elementary charge.
+
+\textit{Examples and evaluation set.} The 21 examples are the two end members, three structures at each of $x=1/9$, $5/18$, $4/9$, $5/9$, $13/18$ and $8/9$ drawn with \texttt{default\_rng(0)} without reading their energies, and the Na metal structure. The evaluation set contains 279 P2 structures. The 18 interior examples are excluded from it, but the two end members are retained as shared references. The evaluation set therefore comprises 277 structures that are not examples and two shared end members, and it is not fully independent of the examples; the voltage also uses the Na metal example.
+
+\textit{Additional terms.} The correction keeps the base form with up to eight terms. Besides the four common forms, the library provides four forms aimed at Na ordering and Mn oxidation (Table~\ref{tab:si-ranges}): a Gaussian shell term $J\,e^{-(r-r_s)^2/2\sigma^2}S(r)$ for one neighbour shell of an element pair, with up to three shells per pair; a screened Coulomb term $A\,e^{-r/\lambda}/r$; a site term equal to $\epsilon$ times the number of Mn atoms within $r_f$ of each atom of an element, counted with a smooth switch between $r_f-0.15$ and $r_f+0.15$~\AA; and a bond valence term $\kappa\sum_{\mathrm{Mn}}(V_{\mathrm{Mn}}-V_0)^2$. Unlike the other pair terms, which are switched off at 5~\AA, the screened Coulomb term is summed to 10~\AA\ and multiplied by a cosine switch between 9 and 10~\AA. The bond valence sum of a Mn atom is
+\begin{equation}
+V_{\mathrm{Mn}}=\sum_{\mathrm{O}}\exp\!\left[\frac{1.753\,\text{\AA}-r}{0.37\,\text{\AA}}\right]\,S(r),
+\label{eq:si-vmn}
+\end{equation}
+where the sum runs over O atoms at distance $r$ from the Mn atom and $S(r)$ is the switch of the main text. The language model writes all numerical parameters within the ranges of Table~\ref{tab:si-ranges}.
+
+\textit{Prompt changes.} For every example, the prompt gives the DFT and BAM values of $\Delta E_\mathrm{f}$. It decomposes the BAM error of the lowest energy example at each $x$ into a hull depth component along $x(1-x)$ and a hull tilt component along $x(1-x)(1-2x)$. For each physical form at a fixed small strength, a term effect table reports the changes in $\Delta E_\mathrm{f}$ at each example $x$, both components and the example force error. Each refinement prompt also reports the remaining components of the best candidate, the contribution of each of its terms and its force error relative to BAM. Besides numbers computed from the examples, the prompt contains fixed settings (parameter ranges, thresholds, the bond valence constants and the BAM per element values) and a qualitative note, carried over from earlier prompt variants, that previous attempts changed mainly the symmetric part of the error.
+
+\textit{Selection and range check.} A candidate is retained only if it meets five conditions: its example energy, $\Delta E_\mathrm{f}$ and $E_{\mathrm{hull}}$ errors are all lower than those of BAM; its example force error is at most 1.2 times that of BAM; it correctly orders at least as many same $x$ example pairs as BAM (16 of 18); it reduces the tilt component by at least 30\%; and it passes a range check. The range check evaluates each term on an isolated pair of two elements, starting at 0.9 times the sum of the covalent radii and proceeding outward, and rejects forces above 3~eV/\AA. The site term is evaluated for its element with Mn, the bond valence term for Mn with O, and the screened Coulomb term up to 10~\AA; angle terms are not checked. Selection minimizes the sum of the example $E_{\mathrm{hull}}$ error and the remaining tilt. If no candidate passes, BAM is used.
+
+\textit{Calls and fine tuning.} The cathode procedure uses five initial and 30 refinement calls, 35 in total, rather than the ten calls of the base protocol. Refinement prompts include earlier candidates and their scores but not the remaining call budget. The first ten calls therefore coincide with those of a run with the base call budget, and the result after ten calls applies the same selection rule to the candidates of these calls. The model adapted by fine tuning uses the same 21 examples and the base fine tuning settings, with 17 structures for training and 4 for epoch selection.
+
+\textit{Repeated runs.} To assess variation across runs, call budgets and language models, the complete procedure was repeated five times with each of Claude, Gemini, GPT and Qwen, with the same prompt, examples, selection rule and model settings. The first Claude run is the run initially reported in the main text; the remaining runs were performed later. Among the 20 runs with 35 calls, this run has the lowest voltage error and the second lowest $\Delta E_\mathrm{f}$ error. The local Qwen model samples with a seed derived from the call name, which makes otherwise repeated runs identical; for the repeated runs, the seed incorporates both the run and the call. An initial set of five Qwen runs used the seed that did not depend on the run, gave identical outputs and kept BAM; it was discarded and repeated with seeds that depend on the run. Every run is listed in Section~\ref{si:cathode-runs}.
+
+\textit{Development history.} The prompt was selected from eight variants, each run once and evaluated on test structures including the present set. The other seven provided only formation energy errors or added a ranking table. The budget of 35 calls was set during this development, before the comparison with the first ten calls of each run was computed.
+
+\subsection{H adsorption on dual atom catalysts}
+\label{si:app-catalyst}
+
+\textit{Structures and labels.} The catalysts M$_2$-N$_x$-C contain two metal atoms and zero to six N atoms in a single graphene sheet (58 atoms), with and without one adsorbed H (59 atoms), for M = Co, Fe, Cr, Ir and Pt. Labels are VASP values obtained with RPBE, the Tkatchenko and Scheffler dispersion correction, a 500~eV cutoff and spin polarization, with a Hubbard $U$ of 3.42, 3.29 and 2.79~eV on Co, Fe and Cr and none on Ir and Pt. Slab and slab+H labels are relaxation endpoints. Each metal has 20 N coordination motifs, defined by the number and arrangement of N atoms around the metal pair. The original test split contains ten motifs. The file labelled as the relaxed Cr slab+H structure for motif 4N/c contains the V calculation, so 4N/c is excluded for all five metals. The nine remaining motifs are 1N/a, 2N/c, 2N/d, 2N/f, 3N/b, 3N/d, 4N/a, 5N/a and 6N. Each motif provides a relaxed slab, a relaxed slab+H and an additional single point structure in which H is placed on the relaxed slab without relaxation. The resulting test set contains 135 structures for energy and force evaluation and 45 relaxed slab and slab+H pairs for adsorption energy evaluation. The five metals were selected using BAM errors across all 20 motifs, including the test motifs; this selection applies equally to all methods.
+
+\textit{Examples.} Examples are slab and slab+H pairs drawn from the remaining ten motifs. The example sets of 5, 10 and 20 structures contain two pairs plus one slab, five pairs and ten pairs, respectively, and are nested. Every set also contains the DFT relaxed H$_2$ molecule. Without it, no example contains an H--H pair and no H--H term can be written.
+
+\textit{Target quantity.} The hydrogen adsorption energy is $\Delta E_\mathrm{H} = E(\text{slab+H}) - E(\text{slab}) - \tfrac{1}{2}E(\mathrm{H_2})$. Each method evaluates $E(\mathrm{H_2})$ with its own model; the DFT value under the same settings is $-6.989$~eV. The free energy used for hydrogen evolution is $\Delta G_\mathrm{H} = \Delta E_\mathrm{H} + 0.24$~eV, so the error in $\Delta E_\mathrm{H}$ carries over unchanged to $\Delta G_\mathrm{H}$. Per element constants cancel in $\Delta E_\mathrm{H}$: the slab and slab+H contain equal numbers of metal, C and N atoms, and $c_\mathrm{H}$ contributes equally through the adsorbed H and $\tfrac{1}{2}E(\mathrm{H_2})$. Only coordinate dependent terms whose contributions differ across the slab, slab+H and reference molecule can change $\Delta E_\mathrm{H}$.
+
+\textit{Method version.} The catalyst version, labelled LM written in the tables and figures of the main text, keeps the base correction form, parameter ranges, language model and ten call budget, but changes the input and the selection rule. Besides adding H$_2$ to the examples, the prompt identifies the examples as slab and slab+H pairs, the unpaired slab of the five example set and H$_2$, defines $\Delta E_\mathrm{H}$ as the target, states that per element constants cancel and supplies DFT and BAM values of $\Delta E_\mathrm{H}$ for every example pair. It also states that only terms involving H change $\Delta E_\mathrm{H}$, which is a simplification, describes the range check and gives the range of N counts in the test motifs, without their geometries or labels. Refinement prompts list the earlier candidates that pass all checks first, in order of example $\Delta E_\mathrm{H}$ error.
+
+\textit{Selection and range check.} A candidate is retained only if its example energy, force and $\Delta E_\mathrm{H}$ errors are all lower than those of BAM and it passes a range check. Selection minimizes the example $\Delta E_\mathrm{H}$ error rather than the example force error used by the base protocol. The range check evaluates each term on an isolated pair of its two elements at 80 evenly spaced distances from 0.9 times the sum of the covalent radii to 5~\AA, and rejects a candidate if the force exceeds 3~eV/\AA\ at any of these distances. Angle terms act on three atoms and are not checked. No test structure is used in this check.
+
+\textit{Fine tuning.} The model adapted by fine tuning is BAM trained on the same examples with H$_2$ added. With the base fine tuning settings, it uses 4, 8 and 16 training structures and 1, 2 and 4 validation structures for the three example sets, plus the DFT relaxed H$_2$ molecule as an additional training structure.
+
+\textit{Single points without $U$.} For 23 single points (Co 8, Fe 8, Cr 7), the DFT energy was computed without the Hubbard $U$ used for all examples and for the slab and slab+H structures. Adsorption energies use only slab and slab+H and are unaffected.
+
+\textit{Constant shift.} As a reference, a constant shift adds the mean $\Delta E_\mathrm{H}$ error of the example pairs to the BAM value. This shift is not a potential and does not define energies or forces for individual structures.
+
+\textit{Runs and development history.} Applying the base protocol unchanged leaves the $\Delta E_\mathrm{H}$ error close to that of BAM, whereas omitting the catalyst range check increases forces on the test structures. In that earlier version, the mean force MAE over metals and example set sizes rose to 0.789~eV/\AA, although the energy MAE was 16.8~meV/atom. Terms written for the example distances produced correction forces of up to 26~eV/\AA\ on test structures in which H approaches a metal more closely or binds to N. One Fe test structure, for example, has an Fe--H distance of 1.48~\AA, whereas the examples span distances between 1.77 and 2.39~\AA. In the initial comparison of example set sizes, the LM written correction procedure was repeated three times with Claude, and all other methods were run once. In the additional comparison with 5, 10 and 20 examples per metal, the complete procedure was repeated five times at each size with each of Claude, Gemini, GPT and Qwen, with identical prompts, examples, selection rules, ten call budgets and language model settings. Of the 25 metal corrections per model and example set size, a candidate passes selection in 25, 25 and 24 for Claude with 5, 10 and 20 examples, in 25, 23 and 21 for Gemini, in 22, 21 and 22 for GPT and in 20, 18 and 20 for Qwen. The first three Claude repeats are reused from the initial comparison; repeats four and five and all runs with the other models were performed later. All Claude runs used Claude Code 2.1.299 with the model alias claude-sonnet-5-5, on 19 October (repeats one to three) and 22 October 2026 (repeats four and five).
+
+\subsection{CO$_2$ adsorption in metal organic frameworks}
+\label{si:app-mof}
+
+\textit{Data and filters.} The structures come from the filtered validation split of the Open DAC 2025 data set (ODAC25).\cite{sriram2025odac25} Labels are VASP energies calculated with PBE and D3(BJ) dispersion and corrected with the ODAC25 correction for $k$ point sampling. Relaxation trajectories are retained for pristine frameworks, that is, ODAC23 frameworks without generated defects, added functional groups or synthetic generation, that contain one CO$_2$, no other adsorbate, at most 200 atoms and no lanthanide. The resulting set contains 33 MOFs, listed in Section~\ref{si:mof}, with 2 to 10 trajectories per MOF and 198 trajectories in total. Each trajectory starts from a different CO$_2$ placement in the same framework.
+
+\textit{Split into examples and test structures.} For each MOF, approximately one third of the trajectories are set aside and are not shown to the language model. The test structure is the final frame of the first set aside trajectory in a fixed random order, which gives one test structure per MOF and 33 in total. The 20 example frames are spaced along the remaining example trajectories. The examples additionally include the isolated CO$_2$ molecule and the relaxed bare framework of lowest energy among the ODAC25 relaxations of the bare framework that lie outside the set aside trajectories. All 33 test structures are final relaxation frames with a largest DFT force of at most 0.05~eV/\AA.
+
+
+
+\textit{Target quantity.} The adsorption energy is $E_\mathrm{ads} = E(\text{MOF+CO}_2) - E(\text{MOF}) - E(\mathrm{CO_2})$, and each method evaluates all three energies with its own model. DFT adsorption energies are recomputed from $k$ point corrected total energies with the bare framework described above. The stored ODAC25 adsorption energies use uncorrected energies and, for 16 of the 33 MOFs, a different bare framework; for the test structures the two differ by $-0.04$~eV on average and by at most 0.34~eV. ODAC25 does not contain the CO$_2$ molecule. Its DFT energy, $-22.990$~eV, is inferred from the stored adsorption energies, is identical across frames and carries no $k$ point correction. The molecule is taken to be linear with a C--O distance of 1.176~\AA. Per element constants cancel in $E_\mathrm{ads}$; only terms with different contributions in the loaded framework, bare framework and CO$_2$ molecule can change it.
+
+\textit{Method version.} The MOF version, labelled LM written, is the catalyst version with the bare framework in place of the slab and CO$_2$ in place of H$_2$. The prompt specifies the target and supplies DFT and BAM values of $E_\mathrm{ads}$ for every example frame. Selection and the range check follow the catalyst version. The prompt also describes the examples as one framework and states that the DFT reference includes D3 dispersion and that the test structures place CO$_2$ at other sites of the same framework. This last statement holds for 22 of the 33 test structures. Because the labels include D3 dispersion whereas BAM does not, the library additionally offers the damped pairwise dispersion term of Table~\ref{tab:si-ranges}, with $R_0$ relative to the first neighbour distance of the pair. Like the other pair terms, it is switched off at 5~\AA.
+
+\textit{Fine tuning.} Fine tuning uses the bare framework, 16 example frames and the CO$_2$ molecule for training and the other 4 frames for validation, with the base fine tuning settings otherwise.
+
+\textit{Example set size.} The version with dispersion was also run once with Claude with 5 and 10 example frames, taken as nested subsets of the 20 (5 within 10 within 20) by selecting one frame per example trajectory before adding further frames. The bare framework and CO$_2$ molecule are always included. Fine tuning then uses 4 and 8 frames for training and 1 and 2 for validation. These runs were performed after the results with 20 frames had been seen, with the method unchanged. One run with 10 frames that had stopped during refinement was restarted from the beginning. The version without dispersion was run earlier with the same subsets and gives $E_\mathrm{ads}$ MAEs of 0.184, 0.173 and 0.179~eV with 5, 10 and 20 frames, with no passing candidate for 8, 8 and 9 MOFs.
+
+\textit{Repeated runs.} To assess variation between runs and language models, the complete procedure with 20 examples was repeated five times with each of Claude, Gemini, GPT and Qwen, with identical prompts, examples, selection rules, model settings and the default budget of ten calls. Unlike the cathode version, the MOF version keeps ten calls: a correction was selected for 20 to 31 of the 33 MOFs in every run, and no MOF runs with 35 calls were performed. The language model runs shared one machine. Of 165 Gemini jobs, 53 were resumed, including jobs stopped by service quotas. Processing times exclude quota waiting periods and use reconstructed active intervals from file timestamps for resumed jobs. Qwen processed two MOF jobs at a time on a local server shared with CF$_4$ jobs. Fine tuning used two GPUs, with up to three jobs per GPU at the beginning and up to two later. The first Claude run is the run initially reported in the main text; the remaining runs were performed later. Fine tuning and the runs with 5 and 10 examples were each performed once. In a further check, the correction of each framework from the first Claude run with dispersion is applied unchanged to the test structures of the other 32 frameworks.
+
+\textit{Development history.} The dispersion term was added after the version without it achieved an $E_\mathrm{ads}$ error of 0.179~eV. The version without dispersion was run three times with Claude and 20 examples; its comparison of example set sizes uses the first run. Interrupted Claude and Gemini attempts with dispersion were discarded and restarted. Two Qwen jobs retained in the results had transport errors: two of ten calls failed for LAWGIA in run 2, and nine of ten failed for JOKYEN in run 5, which retained BAM.
+
+\subsection{CF$_4$ adsorption on alumina}
+\label{si:app-cf4}
+
+\textit{Surfaces.} Luo et al.\ studied CF$_4$ adsorption with PBE and D3 dispersion at eight sites of $\alpha$-Al$_2$O$_3$(001), $\gamma$-Al$_2$O$_3$(110) and $\gamma$-Al$_2$O$_3$(100).\cite{luo2024cf4} The three surfaces are constructed from that work. The $\gamma$(110) surface is the p(2$\times$2) slab of its Supporting Information (160 atoms, $16.68\times16.04\times23.65$~\AA$^3$). The $\gamma$(100) surface is a p(2$\times$2) slab cut from its $\gamma$-Al$_2$O$_3$ bulk, which follows the model of Digne et al.\cite{digne2002alumina,digne2004alumina} (160 atoms, $11.07\times16.68\times23.65$~\AA$^3$). Luo et al.\ describe four types of fourfold coordinated Al sites on $\gamma$(100) but do not give this slab; the slab used here exposes fivefold coordinated Al on both faces, as in the (100) surface of Digne et al., so its sites differ from theirs. Luo et al.\ do not state the $\alpha$(001) termination. The $\alpha$(001) surface is a p(3$\times$3) slab terminated by Al and cut from its $\alpha$-Al$_2$O$_3$ bulk (270 atoms, $14.34\times14.34\times27.55$~\AA$^3$). The lower half of each slab is held fixed.
+
+\textit{Test structures.} The seven test structures comprise CF$_4$ at the threefold coordinated Al site of the $\gamma$(110) structure of Luo et al., used as the starting structure, and CF$_4$ placed above two fourfold coordinated Al sites of $\gamma$(110), three fivefold coordinated Al sites of $\gamma$(100) and one Al site of $\alpha$(001). The six additional placements need not coincide with the sites of Luo et al. The test structures, the bare slabs and the CF$_4$ molecule were relaxed with VASP, using PBE, first including D3 dispersion and then without the dispersion correction (without spin polarization, until all forces were below 0.05~eV/\AA). Their energies are then evaluated by single point calculations at the final geometries with the example settings.
+
+\textit{Example frames.} Example frames are single point structures generated by placing a rigid CF$_4$ molecule above a bare slab at a random orientation and lateral position, then lowering it until its shortest slab distance is between 1.9 and 3.2~\AA. Two additional frames per surface have one F atom directed towards a surface Al atom at 1.9 to 2.3~\AA. A placement is rejected when its C atom (or, for the directed frames, the target Al atom) lies within 1.5~\AA, laterally, of the C atom of a test structure or of one of its images under the translations of the primitive surface cell, so that no example lies at a test site. This gives 10, 8 and 6 example frames for $\gamma$(110), $\gamma$(100) and $\alpha$(001); every frame and its distance to the test sites is listed in Table~\ref{tab:si-cf4-structures} of Section~\ref{si:cf4}. The bare slab and CF$_4$ molecule are additionally included as examples. Unlike the MOF relaxation frames, these examples keep the geometries of both the slab and the molecule obtained with PBE and D3 dispersion without further relaxation, whereas the test structures and the slab and molecule used for their $E_\mathrm{ads}$ are relaxed without dispersion.
+
+\textit{Labels.} All labels are obtained from VASP single point calculations without dispersion, with PBE, a 450~eV cutoff, spin polarization and the $\Gamma$ point, using VASP 6.3.2 and 6.5.1. For three structures evaluated with both versions, the energies differ by at most 0.1~meV.
+
+\textit{Target quantity.} The adsorption energy is $E_\mathrm{ads} = E(\text{slab+CF}_4) - E(\text{slab}) - E(\mathrm{CF_4})$, evaluated on the seven test structures at their DFT geometries; each method evaluates all three energies with its own model. These reference values without dispersion differ from those reported by Luo et al. Only the threefold coordinated Al site of $\gamma$(110) binds CF$_4$, at $-0.179$~eV, and the other six sites lie within 0.015~eV of zero.
+
+\textit{Method version.} The CF$_4$ version, labelled LM written, is the MOF version without the dispersion term, with the bare slab in place of the bare framework and CF$_4$ in place of CO$_2$. Correction generation and selection are performed separately for each surface, with ten calls per surface. Any selected correction is applied to all evaluation sites on that surface within a run. The prompt specifies the target and supplies DFT and BAM values of $E_\mathrm{ads}$ for every example frame. It also states that the DFT reference has no dispersion and that the test sites lie elsewhere on the same surface. Selection and the range check follow the same adsorption protocol.
+
+\textit{Fine tuning.} For each surface, fine tuning uses the bare slab, the CF$_4$ molecule and 8, 6 and 5 example frames for training, with the other 2, 2 and 1 frames for validation, respectively, and otherwise follows the base fine tuning settings. For the smaller sets of 5 and 3 frames, it uses 4 and 2 frames for training and 1 frame for validation.
+
+\textit{Runs and development history.} This version was developed after an earlier evaluation of the unchanged base protocol at the same seven sites. Corrections were written by Claude from 5, 10 or 20 earlier DFT frames of CF$_4$ on $\gamma$(110) without dispersion (molecular dynamics frames, C--F scans and displaced structures) and selected by force error. $E_\mathrm{ads}$ was evaluated after FIRE relaxation (0.05~eV/\AA) with each potential, without dispersion, against PBE and D3 relaxed DFT. The $E_\mathrm{ads}$ MAE was 0.272, 0.258 and 0.241~eV with 5, 10 and 20 frames (BAM: 0.274~eV; fine tuning on the same frames: 0.060 to 0.079~eV), and adding a prompt paragraph that stated the adsorption energy target gave 0.270 to 0.272~eV. Candidates with an F--Al Born--Mayer term, written from contexts of other CF$_4$ systems, had passed the energy and force checks but were not selected; evaluated at the seven test sites, they gave 0.091 to 0.105~eV. The directed F--Al example frames and selection by adsorption energy error were added after this diagnostic. To assess variation between runs and language models, the complete procedure was repeated five times with each of Claude, Gemini, GPT and Qwen, with the same prompt, examples, selection rule, model settings and default budget of ten calls as for MOFs. The first Claude run is the run initially reported in the main text; the remaining runs were performed later and are listed in Table~\ref{tab:si-cf4-runs}. Fine tuning was run once. In a later comparison of example set sizes, performed after these results had been seen, 5 and 3 frames per surface were drawn as nested random subsets of the example frames, with the bare slab and CF$_4$ molecule always included. The complete procedure was run five times with Claude for each size, and fine tuning was run once for each surface and size (Table~\ref{tab:si-cf4-nsub}).
+
+\FloatBarrier
+\clearpage
+\ifbulk
+\section{Written versus fitted numbers}
+\label{si:fit}
+
+The LM written correction has no fitter: the language model writes the constants $c_Z$ and every parameter of the terms $\phi_t$ (Eq.~3 of the main text). To compare these written numbers with fitted ones, we use the LPSCl test set, in which one context of 20 examples serves all 50 queries. For this context the language model selected four Born--Mayer terms, Li--P, S--S, Li--Li and Li--Cl. We kept these terms and fitted all of their numbers to the same 20 examples.
+
+\subsection{Fitting the selected terms}
+
+The fit adjusts $c_Z$ and all term parameters together. Each parameter is kept inside the range given to the language model through a logistic map. The objective on the 20 examples is $\mathrm{MAE}_E/\mathrm{MAE}_E^{\mathrm{BAM}}+\mathrm{MAE}_F/\mathrm{MAE}_F^{\mathrm{BAM}}$, minimised with Adam (learning rate 0.05, 800 steps). The constants start from the least squares solution for $E_{\mathrm{DFT}}-E_{\mathrm{NN}}$ of the examples, and the term parameters from five sets: one with every parameter at the middle of its range and four random. Because $c_Z$ enter the energy linearly and do not change the forces, they are then solved again by least squares with the fitted term parameters fixed. The five fitted candidates pass through the same selection as the written ones: both example errors must be below those of BAM, the lowest example force error is chosen, and otherwise the prediction is BAM. Our differentiable implementation of the four term forms reproduces the energies and forces of the evaluation code to within $10^{-13}$, and the fitted predictions are scored by the same evaluation code.
+
+\subsection{Test errors of written and fitted numbers}
+
+\begin{table}[ht]
+\caption{Written and fitted numbers for the same selected terms, LPSCl test set, 50 queries. Differences are fitted error minus written error with paired 95\% bootstrap intervals; positive values favour the written numbers. Both corrections passed the selection.}
+\label{tab:fit}
+\footnotesize
+\centering
+\begin{tabular}{lrrll}
+\toprule
+ & Energy MAE & Force MAE & Energy difference & Force difference \\
+ & (meV/atom) & (eV/\AA) & (meV/atom) & (eV/\AA) \\
+\midrule
+BAM & 54.82 & 0.1942 & & \\
+Written numbers & 6.91 & 0.1835 & & \\
+Fitted numbers & 7.81 & 0.1836 & $+0.90$ [$+0.72$, $+1.09$] & $0.0000$ [$-0.0007$, $+0.0008$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:fit} compares the two. On the 20 examples the fitted numbers reach the same errors as the written ones, 2.02 against 2.07 meV/atom and 0.1441 eV/\AA\ for both, although the fitted Born--Mayer parameters differ from the written ones (Table~\ref{tab:fit-terms}); the examples therefore do not fix these parameters. On the queries the written numbers give a lower energy error, 6.91 against 7.81 meV/atom, with an interval that excludes zero, and the same force error, 0.1835 against 0.1836 eV/\AA. Without a fitter, the numbers written by the language model are therefore as accurate as numbers fitted to the same examples for the same terms. The comparison covers one test set with one context, one language model run and one fit.
+
+\clearpage
+\subsection{Written and fitted parameters}
+
+\begin{table}[!ht]
+\caption{Constants and Born--Mayer (BM) parameters for the LPSCl context. BAM lists its per element reference values $\overline e(Z)+c_{\mathrm{old}}(Z)$. $B$ in eV, $\rho$ in \AA.}
+\label{tab:fit-terms}
+\footnotesize
+\centering
+\begin{tabular}{llrrr}
+\toprule
+ & & BAM & Written & Fitted \\
+\midrule
+$c_Z$ (eV) & Li & $-3.6140$ & $-3.6842$ & $-3.7049$ \\
+ & P & $-6.9666$ & $-7.0368$ & $-7.0072$ \\
+ & S & $-4.6666$ & $-4.7652$ & $-4.7474$ \\
+ & Cl & $-2.8157$ & $-2.8859$ & $-2.8563$ \\
+\midrule
+BM Li--P & $B$, $\rho$ & & 0.0080, 0.350 & 0.0141, 0.495 \\
+BM S--S & $B$, $\rho$ & & 0.0140, 0.300 & 0.0059, 0.182 \\
+BM Li--Li & $B$, $\rho$ & & 0.0040, 0.300 & 0.0014, 0.304 \\
+BM Li--Cl & $B$, $\rho$ & & 0.0030, 0.300 & 0.0051, 0.739 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FloatBarrier
+\clearpage
+
+\fi
+\section{Additional results for the Na$_x$MnO$_2$ cathode}
+\label{si:cathode-runs}
+
+Table~\ref{tab:si-p2runs} summarizes the five runs of the cathode version for each language model and call budget (Fig.~\ifbulk 5\else 4\fi\ of the main text), and Table~\ref{tab:si-p2runs-all} lists every run. Figures~\ref{fig:si-p2runs-claude} to \ref{fig:si-p2runs-qwen} show the hull and voltage profile of every run for each language model. The run protocol, including the result after ten calls and the use of BAM when no candidate passes, is described in Section~\ref{si:app-cathode}. Errors are on the 279 P2 test structures. The first Claude run with 35 calls is the run shown in Fig.~\ifbulk 4\else 3\fi\ of the main text. Times run from the first dispatched call to the terminal response of the tenth or 35th call, including candidate scoring between calls but excluding scoring and selection after the last call and test evaluation. Fine tuning on the same examples took 17.8~min on one A100 GPU. A run with 35 calls takes 9.8--32.8~min (Fig.~\ref{fig:si-time-sodium}), and the first ten calls take 3.5--10.3~min. The Claude, Gemini and GPT runs share one machine, whereas the Qwen runs execute sequentially on a local GPU, so the times are not a controlled comparison of model speed. The fine tuned model refits the Na reference energy to $-4.16$~eV, compared with $-2.76$~eV in BAM, and predicts a Na metal energy of $-2.19$~eV/atom, compared with $-1.45$~eV/atom from DFT. For the final insertion step from $x=8/9$ to $x=1$, DFT gives a voltage of $-0.46$~V, so this step is unfavorable relative to Na metal within the P2 set, whereas BAM and the first Claude correction give 0.53 and 0.16~V and fine tuning gives $-0.85$~V. \par \begin{figure}[!ht] \centering \includegraphics[width=0.85\linewidth]{bam_icl_time_sodium.pdf} \caption{Elapsed time of the 35-call sodium cathode runs. Points show individual runs and bars show their mean over five runs. The interval runs from the first dispatched call to the terminal response of the 35th call; it includes candidate scoring between calls but excludes scoring and selection after the last call and evaluation of the test structures. The dashed line is the training time of one fine tuning run on one A100 GPU, excluding prediction. Execution environments and measured stages differ, so these times are not a controlled speed comparison.} \label{fig:si-time-sodium} \end{figure}
+
+\textit{Depth and tilt of the error.} For each method, the error $\Delta E_\mathrm{f}^\mathrm{DFT}-\Delta E_\mathrm{f}$ is taken at the lowest energy DFT structure of each Na content $x$ and fitted by least squares as $c_s\,x(1-x)+c_a\,x(1-x)(1-2x)$. The depth is reported as $c_s/4$, the value of the first part at $x=0.5$, and the tilt as $3c_a/32$, the value of the second part at $x=0.25$. A positive value means that the method places the structures too low at that $x$, so that its hull is too deep. With all 297 P2 structures including the examples, BAM has a depth of 27.6 and a tilt of 62.5~meV per formula unit, and the correction of Fig.~\ifbulk 4\else 3\fi\ of the main text has $-18.7$ and 14.9~meV. With only the 279 test structures, these values are 27.5 and 62.2~meV for BAM and $-17.8$ and 16.8~meV for the correction. On the six intermediate example compositions, which are the ones used in the prompt and in the tilt condition, BAM has 38.9 and 56.3~meV and the selected correction $-0.7$ and 0.0~meV. The overcorrection of the depth therefore appears only once the compositions without examples are included. The Na poor side is also where the P2 structure changes most. In the DFT structures, the mean cell length along $c$ is 10.16~\AA\ at $x=0$, 11.28~\AA\ at $x=1/3$ and 10.79~\AA\ at $x=1$. It thus grows by 1.12~\AA\ from $x=0$ to 1/3 but changes by at most 0.49~\AA\ from $x=1/3$ to 1.
+
+\begin{table}[h]
+\caption{Five runs per language model and call budget. Selected is the number of runs with a passing candidate. Errors are means over the five runs with the range in parentheses, in meV per formula unit for $\Delta E_\mathrm{f}$ and $E_{\mathrm{hull}}$ and in V for the voltage; lowest is the number of $x$ values, of 13, at which the lowest energy structure is identified; time is the mean wall time per run in minutes.}
+\label{tab:si-p2runs}
+\centering
+\footnotesize
+\renewcommand{\baselinestretch}{1}\selectfont
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrclllrr}
+\toprule
+Model & Calls & Selected & $\Delta E_\mathrm{f}$ & $E_{\mathrm{hull}}$ & $V$ MAE & Lowest & Time \\
+\midrule
+Claude & 10 & 2/5 & 44.67 (17.72--59.66) & 32.84 (32.70--33.27) & 0.29 (0.17--0.33) & 9.4 & 6.6 \\
+ & 35 & 4/5 & 31.68 (20.91--59.66) & 32.97 (31.54--36.49) & 0.37 (0.15--0.97) & 6.8 & 15.7 \\
+Gemini & 10 & 1/5 & 56.34 (43.07--59.66) & 33.57 (32.70--37.07) & 0.32 (0.27--0.33) & 11.4 & 4.0 \\
+ & 35 & 4/5 & 44.02 (22.25--59.66) & 33.98 (31.68--37.07) & 0.24 (0.17--0.33) & 8.4 & 17.0 \\
+GPT & 10 & 0/5 & 59.66 & 32.70 & 0.33 & 12.0 & 6.5 \\
+ & 35 & 1/5 & 54.22 (32.48--59.66) & 33.20 (32.70--35.20) & 0.31 (0.22--0.33) & 11.0 & 21.0 \\
+Qwen & 10 & 0/5 & 59.66 & 32.70 & 0.33 & 12.0 & 8.9 \\
+ & 35 & 1/5 & 52.37 (23.22--59.66) & 33.27 (32.70--35.55) & 0.34 (0.33--0.37) & 11.8 & 30.1 \\
+\midrule
+BAM & & & 59.66 & 32.70 & 0.33 & 12 & \\
+Fine tuning & & & 39.13 & 25.36 & 0.73 & 12 & 17.8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{Every run of the cathode version on the 279 P2 test structures. Selected tells whether a candidate passed every check. Vertices are intermediate DFT hull vertices found / missing / extra (5 such vertices, since the end members are vertices by construction). $\Delta E_\mathrm{f}$ and $E_{\mathrm{hull}}$ MAE in meV per formula unit, voltage MAE and mean voltage in V (DFT mean 2.60~V), energy MAE in meV/atom, force MAE in eV/\AA, time in minutes. BAM gives 59.66, 32.70, 5/0/3, 12, 0.33, 2.66, 103.3 and 0.1022, and fine tuning 39.13, 25.36, 5/0/2, 12, 0.73, 1.89, 10.0 and 0.0886.}
+\label{tab:si-p2runs-all}
+\centering
+\scriptsize
+\renewcommand{\baselinestretch}{1}\selectfont
+\renewcommand{\arraystretch}{0.9}
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lrrcrrcrrrrrr}
+\toprule
+Model & Calls & Run & Selected & $\Delta E_\mathrm{f}$ & $E_{\mathrm{hull}}$ & Vertices & Lowest & $V$ MAE & Mean $V$ & Energy & Force & Time \\
+\midrule
+Claude & 10 & 1 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 9.7 \\
+ &  & 2 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 7.3 \\
+ &  & 3 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 6.5 \\
+ &  & 4 & yes & 26.66 & 32.84 & 2/3/3 & 6 & 0.17 & 2.74 & 5.9 & 0.1232 & 5.1 \\
+ &  & 5 & yes & 17.72 & 33.27 & 3/2/4 & 5 & 0.28 & 2.51 & 91.1 & 0.1212 & 4.4 \\
+\cmidrule(lr){2-13}
+ & 35 & 1 & yes & 21.08 & 31.54 & 2/3/4 & 6 & 0.15 & 2.63 & 11.0 & 0.1117 & 14.7 \\
+ &  & 2 & yes & 31.36 & 36.49 & 2/3/6 & 6 & 0.97 & 3.54 & 6.1 & 0.1273 & 19.2 \\
+ &  & 3 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 23.9 \\
+ &  & 4 & yes & 25.39 & 32.33 & 2/3/3 & 4 & 0.17 & 2.74 & 24.2 & 0.1241 & 10.8 \\
+ &  & 5 & yes & 20.91 & 31.78 & 3/2/4 & 6 & 0.23 & 2.55 & 8.2 & 0.1259 & 9.8 \\
+\midrule
+Gemini & 10 & 1 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 3.9 \\
+ &  & 2 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 3.5 \\
+ &  & 3 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 4.1 \\
+ &  & 4 & yes & 43.07 & 37.07 & 3/2/4 & 9 & 0.27 & 2.63 & 118.8 & 0.0950 & 4.7 \\
+ &  & 5 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 3.7 \\
+\cmidrule(lr){2-13}
+ & 35 & 1 & yes & 41.31 & 36.08 & 3/2/5 & 7 & 0.18 & 2.67 & 119.1 & 0.1168 & 19.1 \\
+ &  & 2 & yes & 53.80 & 31.68 & 2/3/4 & 8 & 0.24 & 2.84 & 15.7 & 0.1239 & 19.1 \\
+ &  & 3 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 17.9 \\
+ &  & 4 & yes & 43.07 & 37.07 & 3/2/4 & 9 & 0.27 & 2.63 & 118.8 & 0.0950 & 16.6 \\
+ &  & 5 & yes & 22.25 & 32.35 & 2/3/4 & 6 & 0.17 & 2.75 & 25.1 & 0.1182 & 12.4 \\
+\midrule
+GPT & 10 & 1 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 6.4 \\
+ &  & 2 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 6.3 \\
+ &  & 3 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 6.4 \\
+ &  & 4 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 7.0 \\
+ &  & 5 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 6.4 \\
+\cmidrule(lr){2-13}
+ & 35 & 1 & yes & 32.48 & 35.20 & 2/3/4 & 7 & 0.22 & 2.80 & 14.2 & 0.1103 & 17.4 \\
+ &  & 2 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 22.6 \\
+ &  & 3 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 21.7 \\
+ &  & 4 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 22.7 \\
+ &  & 5 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 20.7 \\
+\midrule
+Qwen & 10 & 1 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 6.3 \\
+ &  & 2 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 9.5 \\
+ &  & 3 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 10.3 \\
+ &  & 4 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 8.9 \\
+ &  & 5 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 9.4 \\
+\cmidrule(lr){2-13}
+ & 35 & 1 & yes & 23.22 & 35.55 & 5/0/2 & 11 & 0.37 & 2.37 & 76.3 & 0.1205 & 27.1 \\
+ &  & 2 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 30.1 \\
+ &  & 3 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 32.8 \\
+ &  & 4 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 30.6 \\
+ &  & 5 & no & 59.66 & 32.70 & 5/0/3 & 12 & 0.33 & 2.66 & 103.3 & 0.1022 & 30.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{$\Delta E_\mathrm{f}$ MAE at each Na content $x$ on the 279 P2 test structures, in meV per formula unit. Fine tuning uses the same examples. The language model columns are means over the five runs of each model with 35 calls. A run without a passing candidate keeps BAM, which applies to one Claude, one Gemini, four GPT and four Qwen runs. $N$ is the number of test structures at that $x$. The end members at $x=0$ and $x=1$ have zero error by construction and are omitted. Over all 279 structures the MAEs are 59.66 for BAM, 39.13 for fine tuning and 31.68, 44.02, 54.22 and 52.37 for the five run means of Claude, Gemini, GPT and Qwen.}
+\label{tab:si-p2-byx}
+\centering
+\small
+\renewcommand{\baselinestretch}{1}\selectfont
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{8pt}
+\begin{tabular}{lrrrrrrr}
+\toprule
+ & & & & \multicolumn{4}{c}{LM written, mean of five runs} \\
+\cmidrule(lr){5-8}
+$x$ & $N$ & BAM & Fine tuning & Claude & Gemini & GPT & Qwen \\
+\midrule
+$1/18$ & 1 & 42.1 & 33.4 & 22.6 & 30.7 & 40.1 & 34.7 \\
+$1/9$ & 2 & 59.0 & 36.5 & 34.6 & 46.8 & 55.5 & 50.3 \\
+$1/6$ & 14 & 83.9 & 63.1 & 46.6 & 64.1 & 78.9 & 71.3 \\
+$2/9$ & 39 & 86.4 & 63.0 & 40.2 & 62.1 & 80.0 & 72.5 \\
+$5/18$ & 36 & 90.9 & 62.3 & 40.6 & 64.7 & 83.0 & 74.7 \\
+$1/3$ & 28 & 83.2 & 52.7 & 32.8 & 56.1 & 73.6 & 69.0 \\
+$7/18$ & 19 & 80.2 & 49.4 & 35.1 & 54.9 & 70.2 & 66.3 \\
+$4/9$ & 17 & 64.5 & 35.9 & 27.3 & 42.6 & 54.7 & 55.6 \\
+$1/2$ & 13 & 59.6 & 35.4 & 30.2 & 41.4 & 50.0 & 50.9 \\
+$5/9$ & 9 & 43.8 & 24.6 & 30.9 & 35.9 & 39.4 & 40.2 \\
+$11/18$ & 14 & 35.7 & 23.0 & 29.9 & 33.1 & 31.5 & 33.0 \\
+$2/3$ & 20 & 16.9 & 15.2 & 24.2 & 22.9 & 16.5 & 20.0 \\
+$13/18$ & 17 & 12.9 & 14.5 & 22.5 & 19.8 & 12.9 & 16.8 \\
+$7/9$ & 34 & 26.7 & 12.2 & 19.2 & 18.4 & 25.9 & 30.7 \\
+$5/6$ & 11 & 35.2 & 14.7 & 25.8 & 27.2 & 34.6 & 37.2 \\
+$8/9$ & 2 & 69.4 & 25.9 & 45.6 & 45.0 & 64.8 & 69.0 \\
+$17/18$ & 1 & 59.2 & 16.7 & 28.9 & 36.2 & 53.8 & 58.8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{fig_si_p2runs_claude.pdf}
+\caption{Hull and voltage profile of the five Claude runs with 35 calls. Top: formation energy of every P2 structure (points) and the hull of each run (black line), with the examples (circles) and the DFT hull (dotted). The numbers above each panel are the $\Delta E_\mathrm{f}$ MAE in meV per formula unit and the voltage MAE in V on the 279 test structures, as in Table~\ref{tab:si-p2runs-all}. Bottom: voltage between neighbouring DFT hull vertices for each run, with DFT, BAM and fine tuning on the same examples. A run without a passing candidate keeps BAM, so its hull and voltage are those of BAM. Run 1 is the run of Fig.~\ifbulk 4\else 3\fi\ of the main text.}
+\label{fig:si-p2runs-claude}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{fig_si_p2runs_gemini.pdf}
+\caption{Hull and voltage profile of the five Gemini runs with 35 calls, shown as in Fig.~\ref{fig:si-p2runs-claude}.}
+\label{fig:si-p2runs-gemini}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{fig_si_p2runs_gpt.pdf}
+\caption{Hull and voltage profile of the five GPT runs with 35 calls, shown as in Fig.~\ref{fig:si-p2runs-claude}.}
+\label{fig:si-p2runs-gpt}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{fig_si_p2runs_qwen.pdf}
+\caption{Hull and voltage profile of the five Qwen runs with 35 calls, shown as in Fig.~\ref{fig:si-p2runs-claude}.}
+\label{fig:si-p2runs-qwen}
+\end{figure}
+
+\clearpage
+\section{Additional results for the dual atom catalysts}
+\label{si:cat-runs}
+
+Table~\ref{tab:si-cat-runs} lists the $\Delta E_\mathrm{H}$ MAE of the four language models over five runs at each example set size. Figures~\ref{fig:si-cat-parity-gemini} to \ref{fig:si-cat-parity-qwen} show the adsorption energy predictions of Gemini, GPT and Qwen. Each run attempts to select a correction for each metal using a budget of ten calls. A metal without a passing candidate keeps BAM. The MAE of a run is taken for each metal over its test pairs and then averaged over the five metals. The first three Claude runs were reused from the initial study. Over its 15 runs, each model makes 75 metal-specific selection attempts, of which 74 for Claude, 69 for Gemini, 65 for GPT and 58 for Qwen yield a candidate that passes the selection rule. The remaining 1, 6, 10 and 17 metal-specific runs, respectively, retained BAM and are included in the reported errors. Averaged over the three example set sizes, the constant shift baseline described in Section~S2.2 gives an MAE of 0.232~eV. Relative to it, the five run MAE differs by $+0.004$~eV for Claude, with the paired 95\% interval $[-0.008, 0.016]$~eV, by $+0.023$~eV for Gemini, with $[0.004, 0.041]$~eV, by $+0.042$~eV for GPT, with $[0.023, 0.064]$~eV, and by $+0.120$~eV for Qwen, with $[0.064, 0.176]$~eV. For Claude, the correction lowers the MAE relative to the shift by 0.008~eV for Cr, with $[-0.015, -0.002]$~eV. It changes the MAE by $-0.030$~eV for Ir, with $[-0.059, 0.001]$~eV, and raises it by 0.043~eV for Pt, with $[0.013, 0.070]$~eV. The paired interval for the overall Claude difference includes zero, so this comparison does not resolve a difference from the constant shift baseline. The intervals use 10000 bootstrap resamples of the 45 test pairs, or of the test pairs of one metal for the values of that metal. The runs and example sets were held fixed, so the intervals do not include their variability. Figure~\ref{fig:si-time-catalyst} shows the processing times for 20 examples per metal. \par \begin{figure}[!ht] \centering \includegraphics[width=0.85\linewidth]{bam_icl_time_catalyst.pdf} \caption{Processing time of the dual atom catalyst runs with 20 examples per metal. Each point is the sum of the five metal-specific processing times for one run, and bars show the mean of five runs. The dashed line is the sum of five fine tuning job durations, one per metal, on H100 MIG hardware. The sums are not the wall time to complete all five metals. The language model runs include candidate scoring and query prediction but use cached BAM outputs and exclude the original BAM calculations. They cover the full query set, not only the 45 test pairs. Hardware, concurrency and measured stages differ, so the times are not a controlled speed comparison.} \label{fig:si-time-catalyst} \end{figure}
+
+\begin{table}[h]
+\caption{Catalyst version: $\Delta E_\mathrm{H}$ MAE (eV) over five runs for each language model and number of examples per metal. Mean, Lowest and Highest are taken over the five runs. BAM gives 0.428~eV, and fine tuning on the same examples gives 0.509~eV with 5 examples, 0.443~eV with 10 and 0.406~eV with 20.}
+\label{tab:si-cat-runs}
+\small
+\setlength{\tabcolsep}{12pt}
+\begin{tabular}{lcccc}
+\toprule
+Model & Examples & Mean & Lowest & Highest \\
+\midrule
+Claude & 5 & 0.247 & 0.219 & 0.265 \\
+ & 10 & 0.242 & 0.227 & 0.255 \\
+ & 20 & 0.220 & 0.187 & 0.246 \\
+\midrule
+Gemini & 5 & 0.258 & 0.226 & 0.286 \\
+ & 10 & 0.255 & 0.241 & 0.275 \\
+ & 20 & 0.253 & 0.230 & 0.276 \\
+\midrule
+GPT & 5 & 0.296 & 0.243 & 0.357 \\
+ & 10 & 0.285 & 0.227 & 0.358 \\
+ & 20 & 0.243 & 0.218 & 0.273 \\
+\midrule
+Qwen & 5 & 0.349 & 0.278 & 0.386 \\
+ & 10 & 0.367 & 0.331 & 0.382 \\
+ & 20 & 0.342 & 0.325 & 0.369 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FloatBarrier
+
+\clearpage
+\begin{table}[!ht] \centering \caption{Counts of selected terms for each language model and metal. Each row covers five runs at each of three example set sizes, giving 15 results. Each count is the number of selected corrections containing the term, including terms of either pair functional form. A correction can contain more than one term. Repeated terms for the same pair within a correction are counted once. Runs that retain BAM are counted separately. M denotes the metal in each row. EAM(H) is an embedded atom term for H and angle(C) is an angle term centred on C.} \label{tab:si-cat-terms} \vspace{6pt} \footnotesize \setlength{\tabcolsep}{6pt} \begin{tabular}{llrrrrrp{5.5cm}} \toprule Model & Metal & BAM & H--H & M--H & H--N & C--H & Other terms \\ \midrule Claude & Co & 0 & 14 & 7 & 4 & 0 & Co--Co 2 \\ Claude & Fe & 0 & 15 & 3 & 4 & 0 & none \\ Claude & Pt & 0 & 15 & 8 & 6 & 1 & none \\ Claude & Ir & 0 & 3 & 14 & 4 & 0 & none \\ Claude & Cr & 1 & 6 & 11 & 8 & 0 & Cr--Cr 2, Cr--N 4 \\ Gemini & Co & 1 & 11 & 11 & 1 & 0 & C--C 1, Co--Co 3 \\ Gemini & Fe & 2 & 11 & 6 & 1 & 0 & Fe--Fe 5, Fe--N 2 \\ Gemini & Pt & 0 & 15 & 4 & 0 & 0 & C--C 1, N--Pt 1, Pt--Pt 3 \\ Gemini & Ir & 0 & 3 & 15 & 2 & 0 & Ir--Ir 2 \\ Gemini & Cr & 3 & 6 & 12 & 3 & 0 & C--C 1, Cr--N 3 \\ GPT & Co & 0 & 15 & 8 & 5 & 2 & Co--Co 1 \\ GPT & Fe & 1 & 14 & 7 & 6 & 0 & angle(C) 1, Fe--N 1 \\ GPT & Pt & 4 & 11 & 7 & 5 & 2 & C--C 1, C--N 1, EAM(H) 1, N--Pt 1 \\ GPT & Ir & 1 & 10 & 14 & 1 & 3 & none \\ GPT & Cr & 4 & 8 & 9 & 8 & 1 & C--C 1, C--Cr 1, Cr--Cr 1, EAM(H)~2 \\ Qwen & Co & 2 & 13 & 9 & 7 & 1 & none \\ Qwen & Fe & 1 & 13 & 11 & 3 & 1 & none \\ Qwen & Pt & 2 & 12 & 11 & 7 & 2 & EAM(H) 1, N--Pt 1, Pt--Pt 1 \\ Qwen & Ir & 5 & 10 & 10 & 5 & 2 & EAM(H) 1 \\ Qwen & Cr & 7 & 7 & 8 & 6 & 1 & none \\ \bottomrule \end{tabular} \end{table} \clearpage Tables~\ref{tab:si-cat-ads} and \ref{tab:si-cat-ef} report the metal-specific adsorption, total energy and force errors of the Claude runs. \begin{table}[!ht] \centering \caption{$\Delta E_\mathrm{H}$ MAE (eV) on the test pairs for each number of examples. BAM uses no examples. LM written values are means of five Claude runs, including the Cr run that retained BAM. Mean averages the five metals equally.} \label{tab:si-cat-ads} \footnotesize \setlength{\tabcolsep}{5pt} \begin{tabular}{lcrrrrrr} \toprule Method & Examples & Co & Fe & Cr & Ir & Pt & Mean \\ \midrule BAM & -- & 0.356 & 0.329 & 0.297 & 0.519 & 0.637 & 0.428 \\ \midrule Fine tuning & 5 & 0.363 & 0.531 & 0.481 & 0.546 & 0.622 & 0.509 \\  & 10 & 0.337 & 0.481 & 0.334 & 0.415 & 0.646 & 0.443 \\  & 20 & 0.442 & 0.393 & 0.276 & 0.204 & 0.714 & 0.406 \\ \midrule LM written & 5 & 0.264 & 0.145 & 0.311 & 0.351 & 0.162 & 0.247 \\  & 10 & 0.222 & 0.139 & 0.301 & 0.353 & 0.192 & 0.242 \\  & 20 & 0.206 & 0.105 & 0.275 & 0.316 & 0.198 & 0.220 \\ \bottomrule \end{tabular} \end{table} \begin{table}[!ht] \centering \caption{Energy MAE (meV/atom) and force MAE (eV/\AA) on the test structures of each metal (27 per metal) for each number of examples. BAM uses no examples. LM written values are means of five Claude runs, including the Cr run that retained BAM. Atoms fixed in the single-point calculation inputs are excluded from the force error.} \label{tab:si-cat-ef} \footnotesize \setlength{\tabcolsep}{3pt} \begin{tabular}{lcrrrrrrrrrr} \toprule  & & \multicolumn{5}{c}{Energy} & \multicolumn{5}{c}{Force} \\ \cmidrule(lr){3-7}\cmidrule(lr){8-12} Method & Examples & Co & Fe & Cr & Ir & Pt & Co & Fe & Cr & Ir & Pt \\ \midrule BAM & -- & 366.5 & 358.1 & 380.4 & 324.0 & 330.0 & 0.523 & 0.532 & 0.460 & 0.909 & 0.755 \\ \midrule Fine tuning & 5 & 40.6 & 46.2 & 43.9 & 33.3 & 33.3 & 0.250 & 0.284 & 0.308 & 0.334 & 0.335 \\  & 10 & 34.6 & 33.5 & 34.2 & 18.1 & 20.2 & 0.357 & 0.251 & 0.392 & 0.314 & 0.303 \\  & 20 & 33.8 & 34.6 & 33.1 & 13.4 & 14.8 & 0.253 & 0.288 & 0.206 & 0.329 & 0.293 \\ \midrule LM written & 5 & 29.2 & 25.4 & 17.5 & 12.9 & 5.5 & 0.570 & 0.532 & 0.465 & 0.888 & 0.748 \\  & 10 & 24.7 & 22.0 & 17.9 & 10.7 & 4.1 & 0.519 & 0.532 & 0.463 & 0.879 & 0.733 \\  & 20 & 25.2 & 23.3 & 89.9 & 7.2 & 4.8 & 0.524 & 0.525 & 0.463 & 0.886 & 0.749 \\ \bottomrule \end{tabular} \end{table} \clearpage \begin{figure}[p] \centering \includegraphics[width=\textwidth]{fig_cat_parity_45pairs_Gemini_revised.pdf} \caption{Hydrogen adsorption energies predicted by Gemini compared with DFT for the 45 test pairs. Panel (a) shows BAM. Panels (b) to (d) show fine tuning with 5, 10 and 20 examples per metal, respectively. Panels (e) to (g) show all five runs of Gemini with 5, 10 and 20 examples per metal, respectively. Each bottom-row panel contains five predictions for each of the same 45 pairs, not 225 independent pairs. MAE is calculated over all pair predictions without averaging predictions across runs. Runs that retained BAM are included.} \label{fig:si-cat-parity-gemini} \end{figure} \begin{figure}[p] \centering \includegraphics[width=\textwidth]{fig_cat_parity_45pairs_GPT_revised.pdf} \caption{Hydrogen adsorption energies predicted by GPT compared with DFT for the 45 test pairs. Panel (a) shows BAM. Panels (b) to (d) show fine tuning with 5, 10 and 20 examples per metal, respectively. Panels (e) to (g) show all five runs of GPT with 5, 10 and 20 examples per metal, respectively. Each bottom-row panel contains five predictions for each of the same 45 pairs, not 225 independent pairs. MAE is calculated over all pair predictions without averaging predictions across runs. Runs that retained BAM are included.} \label{fig:si-cat-parity-gpt} \end{figure} \begin{figure}[p] \centering \includegraphics[width=\textwidth]{fig_cat_parity_45pairs_Qwen_revised.pdf} \caption{Hydrogen adsorption energies predicted by Qwen compared with DFT for the 45 test pairs. Panel (a) shows BAM. Panels (b) to (d) show fine tuning with 5, 10 and 20 examples per metal, respectively. Panels (e) to (g) show all five runs of Qwen with 5, 10 and 20 examples per metal, respectively. Each bottom-row panel contains five predictions for each of the same 45 pairs, not 225 independent pairs. MAE is calculated over all pair predictions without averaging predictions across runs. Runs that retained BAM are included.} \label{fig:si-cat-parity-qwen} \end{figure} \clearpage \section{Additional results for metal organic frameworks}
+\label{si:mof}
+
+Table~\ref{tab:si-mof} lists the 33 MOFs of the main text. The names are the ODAC25 framework identifiers. For each MOF, the table gives the metal, the number of atoms with CO$_2$, the numbers of example and held out trajectories of the split in Section~\ref{si:app-mof}, and the test structure, identified by its ODAC25 trajectory index (\texttt{<MOF>\_w\_CO2\_<index>}) and frame index. Figure~\ref{fig:si-time-mof} shows the processing times for the five runs. \par \begin{figure}[!ht] \centering \includegraphics[width=0.85\linewidth]{bam_icl_time_mof.pdf} \caption{Processing times of the MOF runs with 20 examples and ten calls per MOF. Each point is the median over 33 MOFs for one run; bars show the mean of five run medians. Processing times include language model calls, candidate scoring and prediction using cached BAM outputs, but exclude the original BAM calculations, test scoring and quota waiting periods. Earlier active intervals for resumed jobs were reconstructed from file timestamps. The dashed line is the estimated median fine tuning training time over 33 MOFs, excluding prediction. The pooled median over 165 jobs is 3.4, 3.9, 3.6 and 9.4~min for Claude, Gemini, GPT and Qwen, respectively. Hardware, concurrency and measured stages differ, so the times are not a controlled speed comparison.} \label{fig:si-time-mof} \end{figure}
+
+\begin{table}[h]
+\caption{The 33 MOFs: metal, number of atoms with CO$_2$, number of example and held out trajectories, and the test structure.}
+\label{tab:si-mof}
+\centering
+\footnotesize
+\renewcommand{\baselinestretch}{1}\selectfont
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{0.9}
+\begin{tabular}{llrrrrr}
+\toprule
+MOF & Metal & Atoms & Example traj. & Held out traj. & Test traj. & Test frame \\
+\midrule
+cg500121f\_si\_004 & Co & 95 & 5 & 2 & 1 & 13 \\
+COKQIE & Fe & 165 & 3 & 2 & 3 & 181 \\
+ECEDAU & Sr & 72 & 5 & 3 & 5 & 189 \\
+ENITAX & Cu & 113 & 3 & 2 & 1 & 18 \\
+EPONEE & Nb/Zn & 79 & 2 & 1 & random\_2 & 158 \\
+EQERAU & Mg & 183 & 4 & 2 & 4 & 92 \\
+EZABEN & Cd & 57 & 5 & 2 & 4 & 164 \\
+FERWAC & Ag/Fe & 108 & 4 & 2 & 3 & 191 \\
+FUBNOH & Zn & 147 & 5 & 3 & 6 & 102 \\
+HAXMUP & Cu & 111 & 3 & 2 & random\_2 & 91 \\
+IJUTEM & Al & 147 & 7 & 3 & 2 & 48 \\
+ja506357n\_si\_002 & Cu & 167 & 5 & 2 & random\_2 & 243 \\
+JOFKIA & Cu & 75 & 3 & 2 & 3 & 311 \\
+JOKYEN & Cd/Ni & 123 & 3 & 2 & random\_1 & 507 \\
+jz4002345\_si\_002 & Zr & 117 & 4 & 2 & random\_1 & 16 \\
+KOSMAI & Co & 57 & 3 & 2 & random\_2 & 79 \\
+KUQXIE & Cd & 45 & 3 & 2 & 3 & 129 \\
+LAWGIA & Zn & 109 & 3 & 1 & random\_2 & 4 \\
+LAZJAZ\_SL & Zn & 96 & 5 & 3 & 6 & 180 \\
+OQIQOW & Y & 167 & 5 & 3 & 3 & 183 \\
+PIHNUQ & Zn & 139 & 5 & 3 & random\_1 & 133 \\
+QISNAJ & Cd & 87 & 1 & 1 & 2 & 480 \\
+RILVOZ & Mn & 87 & 4 & 2 & random\_2 & 107 \\
+SOCLAZ & Cd & 159 & 3 & 2 & 3 & 186 \\
+TASXIW & Zn & 159 & 5 & 2 & random\_2 & 73 \\
+TUMQID & Cu & 131 & 5 & 2 & 2 & 248 \\
+VIWZOR & Zn & 91 & 4 & 2 & 3 & 206 \\
+XAFFOB & Cu & 155 & 3 & 1 & random\_1 & 8 \\
+XEHSIN & Mg & 111 & 4 & 2 & 4 & 130 \\
+XIHRIQ & Co & 141 & 3 & 1 & random\_1 & 126 \\
+XOVVEK & Zn & 116 & 5 & 2 & 1 & 117 \\
+XUKLAS & Zn & 131 & 5 & 2 & 4 & 182 \\
+YEGKOM & Zn & 79 & 4 & 2 & 3 & 85 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FloatBarrier
+
+\clearpage
+Table~\ref{tab:si-mof-nex} compares example set sizes for one Claude run per size. At each size, paired 95\% intervals exclude zero for the differences from BAM and from fine tuning. With 5 examples, the difference is $-0.088$~eV ($[-0.143, -0.047]$) from BAM and $-0.158$~eV ($[-0.237, -0.077]$) from fine tuning. No candidate passes selection for 6 MOFs with 5 examples, 4 with 10 and 3 with 20. The force MAE of the correction on the test structures stays between 0.103 and 0.105~eV/\AA\ at these three sizes, compared with 0.107~eV/\AA\ for BAM. The force MAE of fine tuning rises from 0.014~eV/\AA\ with 20 examples to 0.027~eV/\AA\ with 10 and 0.038~eV/\AA\ with 5. Ten calls per MOF are enough to select a correction for most frameworks, so no MOF runs with 35 calls were made. \begin{table}[!ht] \centering \caption{$E_\mathrm{ads}$ MAE (eV) on the 33 test structures for each number of examples. LM written is one Claude run per size with the dispersion term, and the value with 20 examples is the run of the Claude parity plot in the main text. BAM uses no examples, and fine tuning was run once per size.} \label{tab:si-mof-nex} \footnotesize \setlength{\tabcolsep}{5pt} \begin{tabular}{lrrr} \toprule Method & 5 & 10 & 20 \\ \midrule BAM & 0.260 & 0.260 & 0.260 \\ Fine tuning & 0.330 & 0.326 & 0.337 \\ LM written & 0.172 & 0.147 & 0.153 \\ \bottomrule \end{tabular} \end{table} \clearpage \begin{figure}[!ht] \centering \includegraphics[width=\textwidth]{fig_mof_parity_gemini_notitle.pdf} \caption{CO$_2$ adsorption energies of the 33 test structures against DFT, from BAM (left), fine tuning (middle) and the first Gemini run of the LM written correction (right). Fine tuning and the correction use 20 examples; BAM uses none. Each MAE is over the 33 structures. MOFs without a passing candidate retain BAM and are included.} \label{fig:si-mof-parity-gemini} \end{figure} \begin{figure}[!ht] \centering \includegraphics[width=\textwidth]{fig_mof_parity_gpt_notitle.pdf} \caption{CO$_2$ adsorption energies of the 33 test structures against DFT, from BAM (left), fine tuning (middle) and the first GPT run of the LM written correction (right). Fine tuning and the correction use 20 examples; BAM uses none. Each MAE is over the 33 structures. MOFs without a passing candidate retain BAM and are included.} \label{fig:si-mof-parity-gpt} \end{figure} \begin{figure}[!ht] \centering \includegraphics[width=\textwidth]{fig_mof_parity_qwen_notitle.pdf} \caption{CO$_2$ adsorption energies of the 33 test structures against DFT, from BAM (left), fine tuning (middle) and the first Qwen run of the LM written correction (right). Fine tuning and the correction use 20 examples; BAM uses none. Each MAE is over the 33 structures. MOFs without a passing candidate retain BAM and are included.} \label{fig:si-mof-parity-qwen} \end{figure} \clearpage \section{Additional results for CF$_4$ on alumina}
+\label{si:cf4}
+
+Table~\ref{tab:si-cf4-structures} lists the 24 example frames and the seven test structures of the CF$_4$ test, generated as described in Section~\ref{si:app-cf4}. Every placement point lies at least 1.53~\AA, laterally, from the C atom of a test structure and from its images under the primitive surface translations. In the example frames, the shortest CF$_4$--slab distance ranges from 1.90 to 3.15~\AA\ and the DFT $E_\mathrm{ads}$ from $-0.012$ to $+4.311$~eV. Twenty two of the 24 values are positive, because neither the molecule nor the slab is relaxed. Table~\ref{tab:si-cf4-runs} lists every run of the CF$_4$ version. Figure~\ref{fig:si-time-cf4} shows the processing times with all example frames. The median per-surface processing times over 15 jobs are 2.1, 2.6, 3.5 and 12.2~min for Claude, Gemini, GPT and Qwen, respectively; the median training time over the three fine tuning jobs is 21.0~min. \par \begin{figure}[!ht] \centering \includegraphics[width=0.85\linewidth]{bam_icl_time_cf4.pdf} \caption{Processing time of the CF$_4$ runs with ten calls per surface. Each point is the sum of the three surface-specific processing times for one run, and bars show the mean of five runs. Each time runs from the start of correction generation to the sealed predictions; it includes language model calls, candidate scoring and prediction of the test structures using cached BAM outputs, but excludes the original BAM calculations. The dashed line is the sum of three fine tuning training durations, one per surface, excluding prediction and failed attempts. These sums are not wall times for completion of all three surfaces. Hardware, concurrency and measured stages differ, so the times are not a controlled speed comparison.} \label{fig:si-time-cf4} \end{figure}  The reference can instead be taken as single points without dispersion at the PBE-D3 geometries of the test structures, slabs and molecule. The $E_\mathrm{ads}$ MAE is then 0.250~eV for BAM, 0.201~eV for fine tuning and 0.088~eV for Claude run 1. With the relaxed reference, it is 0.228~eV for BAM, 0.183~eV for fine tuning and 0.082~eV for Claude run 1, so the order is the same.
+
+\begin{table}[h]
+\caption{CF$_4$ structures. Example frames (ex: random placement; ct: one F directed at a surface Al) are single points on the bare slab with its PBE-D3 geometry, and their $E_\mathrm{ads}$ uses that slab; test structures are relaxed without dispersion, and their $E_\mathrm{ads}$ uses the slab and molecule relaxed in the same way. $d_\mathrm{min}$: shortest CF$_4$--slab distance; $d_\mathrm{AlF}$: shortest Al--F distance; $d_\mathrm{test}$: lateral distance of the placement point (the C atom, or the target Al of a directed frame) to the nearest test-site C atom or one of its images under the primitive surface translations. Distances in \AA, DFT $E_\mathrm{ads}$ without dispersion in eV.}\label{tab:si-cf4-structures}
+\footnotesize\renewcommand{\baselinestretch}{1}\selectfont
+\begin{tabular}{llrrrr}
+\toprule
+Surface & Structure & $d_\mathrm{min}$ & $d_\mathrm{AlF}$ & $d_\mathrm{test}$ & $E_\mathrm{ads}$ \\
+\midrule
+$\gamma$(110) & ex01 & 2.51 & 2.78 & 2.29 & $+0.375$ \\
+ & ex02 & 2.29 & 2.30 & 2.41 & $+0.850$ \\
+ & ex03 & 2.48 & 2.63 & 3.34 & $+0.423$ \\
+ & ex04 & 1.92 & 2.93 & 1.74 & $+1.260$ \\
+ & ex05 & 2.17 & 2.64 & 3.69 & $+1.154$ \\
+ & ex06 & 2.32 & 3.43 & 2.91 & $+0.397$ \\
+ & ex07 & 2.65 & 3.61 & 2.68 & $+0.044$ \\
+ & ex08 & 2.54 & 3.41 & 2.43 & $+0.103$ \\
+ & ct01 & 2.15 & 2.26 & 3.00 & $+0.728$ \\
+ & ct02 & 1.99 & 1.99 & 1.94 & $+1.192$ \\
+ & test 1 & 2.10 & 2.10 & -- & $-0.179$ \\
+ & test 2 & 3.02 & 3.04 & -- & $-0.005$ \\
+ & test 3 & 2.60 & 2.60 & -- & $+0.015$ \\
+$\gamma$(100) & ex01 & 1.98 & 2.86 & 2.53 & $+1.383$ \\
+ & ex02 & 3.15 & 3.15 & 1.53 & $-0.005$ \\
+ & ex03 & 3.09 & 3.69 & 1.69 & $+0.003$ \\
+ & ex04 & 3.09 & 3.40 & 1.72 & $+0.010$ \\
+ & ex05 & 2.90 & 3.25 & 2.01 & $+0.035$ \\
+ & ex06 & 2.31 & 2.77 & 2.19 & $+0.472$ \\
+ & ct01 & 1.90 & 1.90 & 2.80 & $+0.930$ \\
+ & ct02 & 2.22 & 2.22 & 2.80 & $+0.354$ \\
+ & test 1 & 3.07 & 3.07 & -- & $+0.004$ \\
+ & test 2 & 3.00 & 3.00 & -- & $+0.001$ \\
+ & test 3 & 2.69 & 2.69 & -- & $+0.009$ \\
+$\alpha$(001) & ex01 & 3.15 & 3.53 & 2.41 & $-0.012$ \\
+ & ex02 & 2.80 & 3.05 & 2.34 & $+0.055$ \\
+ & ex03 & 3.09 & 3.65 & 2.09 & $+0.007$ \\
+ & ex04 & 2.45 & 2.64 & 1.80 & $+0.190$ \\
+ & ct01 & 1.94 & 2.01 & 2.76 & $+4.311$ \\
+ & ct02 & 1.98 & 2.08 & 2.76 & $+3.720$ \\
+ & test 1 & 3.25 & 3.25 & -- & $-0.009$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{Every run of the CF$_4$ version, each with ten calls per surface: $E_\mathrm{ads}$ MAE (eV) over the seven test structures and per surface, number of surfaces of 3 with a passing candidate (Sel.), and the terms selected for each surface (superscripts B: Born--Mayer, M: Morse, E: embedded atom term of the named element, A: bond angle term of the named centre; BAM: no candidate passed and the surface keeps BAM). Run 1 of Claude is the run of Table~\ifbulk 5\else 1\fi\ of the main text.}\label{tab:si-cf4-runs}
+\scriptsize\renewcommand{\baselinestretch}{1}\selectfont
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{llrrrrrlll}
+\toprule
+Model & Run & All & $\gamma$(110) & $\gamma$(100) & $\alpha$(001) & Sel. & Terms, $\gamma$(110) & Terms, $\gamma$(100) & Terms, $\alpha$(001) \\
+\midrule
+Claude & 1 & 0.082 & 0.090 & 0.069 & 0.098 & 3 & F--Al$^\mathrm{B}$ & O--F$^\mathrm{B}$, F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$ \\
+ & 2 & 0.096 & 0.091 & 0.099 & 0.097 & 3 & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & F--Al$^\mathrm{B}$ \\
+ & 3 & 0.091 & 0.100 & 0.079 & 0.102 & 3 & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & F--Al$^\mathrm{B}$, C--O$^\mathrm{B}$ \\
+ & 4 & 0.084 & 0.105 & 0.061 & 0.091 & 3 & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$, C--Al$^\mathrm{B}$ \\
+ & 5 & 0.078 & 0.095 & 0.057 & 0.091 & 3 & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ \\
+Gemini & 1 & 0.071 & 0.086 & 0.048 & 0.097 & 3 & F--Al$^\mathrm{B}$, C--O$^\mathrm{B}$ & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$ \\
+ & 2 & 0.168 & 0.288 & 0.071 & 0.098 & 2 & BAM & F--Al$^\mathrm{M}$ & F--Al$^\mathrm{B}$ \\
+ & 3 & 0.089 & 0.105 & 0.070 & 0.096 & 3 & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{M}$ & F--Al$^\mathrm{M}$ \\
+ & 4 & 0.102 & 0.113 & 0.093 & 0.098 & 3 & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & O--F$^\mathrm{B}$, Al--Al$^\mathrm{M}$ & F--Al$^\mathrm{B}$, O$^\mathrm{A}$ \\
+ & 5 & 0.087 & 0.100 & 0.071 & 0.098 & 3 & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{M}$ & F--Al$^\mathrm{B}$ \\
+GPT & 1 & 0.103 & 0.139 & 0.068 & 0.097 & 3 & C--F$^\mathrm{M}$, F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$, C--Al$^\mathrm{B}$ & F--Al$^\mathrm{M}$ \\
+ & 2 & 0.087 & 0.087 & 0.090 & 0.075 & 3 & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$, C--Al$^\mathrm{B}$ & C--Al$^\mathrm{M}$, C--O$^\mathrm{M}$, F--Al$^\mathrm{M}$, O--F$^\mathrm{M}$ \\
+ & 3 & 0.108 & 0.119 & 0.103 & 0.093 & 3 & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & C--Al$^\mathrm{M}$, F--Al$^\mathrm{M}$, O--F$^\mathrm{M}$ & F--Al$^\mathrm{M}$ \\
+ & 4 & 0.152 & 0.128 & 0.198 & 0.086 & 3 & F--Al$^\mathrm{B}$, C--F$^\mathrm{M}$ & C--Al$^\mathrm{M}$ & C--Al$^\mathrm{B}$, O--F$^\mathrm{B}$, F--Al$^\mathrm{B}$ \\
+ & 5 & 0.081 & 0.095 & 0.070 & 0.073 & 3 & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{M}$ & F--Al$^\mathrm{M}$, C--O$^\mathrm{M}$ \\
+Qwen & 1 & 0.224 & 0.288 & 0.205 & 0.091 & 1 & BAM & BAM & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ \\
+ & 2 & 0.224 & 0.279 & 0.205 & 0.120 & 1 & F$^\mathrm{E}$, O$^\mathrm{E}$, C--F$^\mathrm{B}$ & BAM & BAM \\
+ & 3 & 0.147 & 0.099 & 0.205 & 0.120 & 1 & O--F$^\mathrm{M}$, C--O$^\mathrm{M}$, F--Al$^\mathrm{M}$ & BAM & BAM \\
+ & 4 & 0.162 & 0.147 & 0.205 & 0.079 & 2 & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & BAM & C--Al$^\mathrm{B}$, F--Al$^\mathrm{B}$ \\
+ & 5 & 0.150 & 0.107 & 0.205 & 0.114 & 2 & O--F$^\mathrm{M}$, C--O$^\mathrm{M}$ & BAM & O--F$^\mathrm{B}$, F--Al$^\mathrm{B}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{CF$_4$ runs with smaller example sets: $E_\mathrm{ads}$ MAE (eV) over the seven test structures and per surface, number of surfaces of 3 with a passing candidate (Sel.), and the terms selected for each surface, with the notation of Table~\ref{tab:si-cf4-runs}. Size is the number of example frames per surface, drawn as nested random subsets. With 5 frames, the sets are ex01, ex02, ex03, ex05 and ex06 for $\gamma$(110), ex01 to ex05 for $\gamma$(100), and ct01 and ex01 to ex04 for $\alpha$(001). With 3 frames, they are ex01, ex03 and ex05 for $\gamma$(110), ex01 to ex03 for $\gamma$(100), and ex01, ex02 and ex04 for $\alpha$(001). Fine tuning uses the same frames. With all frames, the five Claude runs give 0.078 to 0.096~eV and fine tuning 0.183~eV (Table~\ref{tab:si-cf4-runs}).}\label{tab:si-cf4-nsub}
+\scriptsize\renewcommand{\baselinestretch}{1}\selectfont
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{llrrrrrlll}
+\toprule
+Size & Run & All & $\gamma$(110) & $\gamma$(100) & $\alpha$(001) & Sel. & Terms, $\gamma$(110) & Terms, $\gamma$(100) & Terms, $\alpha$(001) \\
+\midrule
+5 & Claude 1 & 0.085 & 0.093 & 0.083 & 0.064 & 3 & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$ & O--F$^\mathrm{B}$, F--Al$^\mathrm{B}$, C--O$^\mathrm{B}$ \\
+ & Claude 2 & 0.105 & 0.124 & 0.095 & 0.079 & 3 & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ \\
+ & Claude 3 & 0.097 & 0.123 & 0.080 & 0.066 & 3 & O--F$^\mathrm{B}$, F--Al$^\mathrm{B}$ & O--F$^\mathrm{B}$, F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ \\
+ & Claude 4 & 0.094 & 0.112 & 0.082 & 0.075 & 3 & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & F--Al$^\mathrm{B}$, C--O$^\mathrm{B}$, O--F$^\mathrm{B}$ \\
+ & Claude 5 & 0.086 & 0.087 & 0.092 & 0.064 & 3 & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ \\
+ & Fine tuning & 0.197 & 0.215 & 0.203 & 0.124 & & & & \\
+\midrule
+3 & Claude 1 & 0.077 & 0.080 & 0.082 & 0.058 & 3 & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ \\
+ & Claude 2 & 0.094 & 0.110 & 0.089 & 0.063 & 3 & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & F--Al$^\mathrm{B}$ \\
+ & Claude 3 & 0.113 & 0.155 & 0.088 & 0.059 & 3 & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$ \\
+ & Claude 4 & 0.092 & 0.104 & 0.091 & 0.058 & 3 & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & F--Al$^\mathrm{B}$ \\
+ & Claude 5 & 0.098 & 0.100 & 0.108 & 0.064 & 3 & F--Al$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ & F--Al$^\mathrm{B}$, O--F$^\mathrm{B}$ \\
+ & Fine tuning & 0.198 & 0.215 & 0.208 & 0.121 & & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FloatBarrier
+
+\bibliography{si-references}
+
+\end{document}

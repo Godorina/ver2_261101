@@ -1,0 +1,13 @@
+[LOW] code/systems/adsorption.py:8 — The three-function public-interface constraint is not fully enforced: `DATA`, `BINS`, `CONF`, `json`, `re`, `np`, `read`, `ft`, and `pr` remain public names; sodium likewise exposes constants and imports (`code/systems/sodium.py:2-10`). Prefix internals or explicitly declare `__all__ = ['examples', 'quantity', 'prompt_parts']` in both modules.
+[LOW] /tmp/claude-1000/-home-hgpark-whlee-hgpark-ver2-261101/d7dca3a3-f07d-4104-b048-265e5874cf8f/scratchpad/check_phase3.py:77 — The prompt-order check tests the application-specific target only for presence: `order` excludes it, so a target placed before the force table or after the return schema would still pass; include the target in the ordered positions. The inspected prompt builder places it correctly (`code/common/prompt.py:60-64`).
+[INFO] code/run.py:8 — Imports follow run → systems → common; common does not import systems, systems do not call BAM, and system-specific adsorption bin selection now resides at `code/systems/adsorption.py:9,90`.
+[INFO] code/systems/adsorption.py:72 — Both systems now accept `quantity(app, frames, E)` and use the supplied energy dict without mutation or BAM calls; the helper renames are reflected in their callers (`code/systems/sodium.py:58,73`). Sodium requires the end-member and composition metadata installed by `examples()` and adsorption requires its gas frame last.
+[INFO] /tmp/claude-1000/-home-hgpark-whlee-hgpark-ver2-261101/d7dca3a3-f07d-4104-b048-265e5874cf8f/scratchpad/check_phase3.py:51 — The MOF failure is attributable to the checker: applying the former sorted-column positional assignment in memory reproduces max error 51.3805 eV; choosing loaded by `+` and bare by its absence passes all 1,155 MOF rows against independently loaded DFT and old BAM energies. This supports the checker-only diagnosis for the reported failure, without proving unrelated code free of defects.
+[INFO] code/SPEC.md:156 — Re-ran the supplied read-only Phase 3 checker: ALL PASS, including all 124 contexts, old-cache E_NN/F_NN and all adsorption pair rows; the adsorption, sodium, features and prompt module self-checks also passed. The user's 124 byte-identical prompt comparison was accepted as supplied, not independently repeated.
+VERDICT: FIX
+
+## Round 2
+
+fixed — `code/systems/adsorption.py:7` and `code/systems/sodium.py:7` declare the agreed three-name `__all__`; other names remain accessible by explicit attribute access, as usual in Python.
+fixed — `check_phase3.py:77-82` checks that the target is present after the force table and before the schema; the full checker was rerun and reported ALL PASS for 124 prompts.
+VERDICT: SHIP

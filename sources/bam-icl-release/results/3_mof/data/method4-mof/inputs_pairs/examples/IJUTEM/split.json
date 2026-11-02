@@ -1,0 +1,65 @@
+{
+ "system": "IJUTEM",
+ "source": "ODAC25 Val-Filtered via ontology/icl_mof/split_v1.csv",
+ "source_sha256": "4525b9092fb8bb61731d10a426cdc7d626bda44de611fff6347217327c00185a",
+ "subsets": {
+  "20": {
+   "train": [
+    0,
+    1,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11,
+    12,
+    13,
+    14,
+    17,
+    18,
+    19,
+    20
+   ],
+   "val": [
+    2,
+    10,
+    15,
+    16
+   ]
+  },
+  "10": {
+   "train": [
+    0,
+    3,
+    6,
+    7,
+    9,
+    10,
+    12,
+    18,
+    19
+   ],
+   "val": [
+    13,
+    15
+   ]
+  },
+  "5": {
+   "train": [
+    0,
+    9,
+    12,
+    18,
+    19
+   ],
+   "val": [
+    15
+   ]
+  }
+ },
+ "note": "index 0 = bare-MOF reference; train/val only for a later FT comparison, ICL shows all",
+ "subset_rule": "Add nested N=10 and N=5 subsets to every inputs_pairs/examples/<MOF>/split.json (N=20 entry unchanged).\nOrder: trajectories in default_rng(0) order, frames within each trajectory in default_rng(0) order, then round-robin over\ntrajectories; N subset = first N of that order (so 5 in 10 in 20, one frame per trajectory first). Index 0 (bare ref) always\nin train. FT val count: N=10 -> 2, N=5 -> 1, chosen as subset[default_rng(0).permutation(N)[-nv:]] (as in the catalyst runs)."
+}

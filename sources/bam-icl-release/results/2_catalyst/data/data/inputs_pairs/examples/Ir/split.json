@@ -1,0 +1,100 @@
+{
+ "system": "Ir",
+ "source": "/proj/home/ibs/tdqh/hgpark/calc/icl/ft/catalyst/pairs/00_data/examples/Ir/rand20.traj",
+ "source_sha256": "acc9e09e325c2394cbd9321d5524997afe5f1f458a1608c178c1968cf40edd84",
+ "config_order": [
+  "2N/e",
+  "3N/c",
+  "2N/a",
+  "4N/b",
+  "2N/b",
+  "3N/a",
+  "5N/b",
+  "0N",
+  "4N/d",
+  "1N/b"
+ ],
+ "subsets": {
+  "20": {
+   "train": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "val": [
+    16,
+    17,
+    18,
+    19
+   ]
+  },
+  "10": {
+   "train": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "val": [
+    8,
+    9
+   ]
+  },
+  "5": {
+   "train": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "val": [
+    4
+   ]
+  }
+ },
+ "query_sets": [
+  "Ir"
+ ],
+ "query_configs": [
+  "1N/a",
+  "2N/c",
+  "2N/d",
+  "2N/f",
+  "3N/b",
+  "3N/d",
+  "4N/a",
+  "4N/c",
+  "5N/a",
+  "6N"
+ ],
+ "example_configs": [
+  "0N",
+  "1N/b",
+  "2N/a",
+  "2N/b",
+  "2N/e",
+  "3N/a",
+  "3N/c",
+  "4N/b",
+  "4N/d",
+  "5N/b"
+ ],
+ "fixed_atom_flags": []
+}

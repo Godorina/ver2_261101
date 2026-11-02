@@ -1,0 +1,9 @@
+env/
+BAM-torch/
+outputs/
+__pycache__/
+sources/past/
+*.swp
+*.pyc
+.omc/state/
+**/.omc/state/
